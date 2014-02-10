@@ -1,5 +1,7 @@
 package edu.avans.hartigehap.domain.price;
 
+import edu.avans.hartigehap.domain.WebOrderItem;
+
 import java.util.List;
 
 /**

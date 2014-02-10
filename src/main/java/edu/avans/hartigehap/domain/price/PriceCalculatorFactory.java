@@ -12,6 +12,11 @@ public class PriceCalculatorFactory {
      */
     private static PriceCalculatorFactory instance;
 
+    /**
+     * Constructor
+     *
+     * Prevents avoiding the singleton due to the method being private.
+     */
     private PriceCalculatorFactory() {}
 
     /**
@@ -35,8 +40,25 @@ public class PriceCalculatorFactory {
     public PriceCalculator create() {
 
         int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        PriceCalculator calculator = null;
 
-        if
+        switch (dayOfWeek) {
+            // Fall-trough, break omitted on purpose.
+            case Calendar.MONDAY:
+            case Calendar.TUESDAY:
+            case Calendar.WEDNESDAY:
+            case Calendar.THURSDAY:
+            case Calendar.FRIDAY:
+            case Calendar.SATURDAY:
+            case Calendar.SUNDAY:
+                calculator = new PercentageDiscountPriceCalculator();
+                break;
+            default:
+                calculator = new DefaultPriceCalculator();
+                break;
 
+        }
+
+        return calculator;
     }
 }

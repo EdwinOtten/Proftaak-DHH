@@ -6,13 +6,11 @@ import java.util.List;
 
 /**
  * Created by Gijs on 10-2-14.
- *
- * Default price calculator.
  */
-public class DefaultPriceCalculator implements PriceCalculator {
+public class PercentageDiscountPriceCalculator extends DefaultPriceCalculator {
 
     @Override
     public double calculatePrice(List<WebOrderItem> orderList) {
-        return 0;
+        return super.calculatePrice(orderList) * 0.25;
     }
 }
