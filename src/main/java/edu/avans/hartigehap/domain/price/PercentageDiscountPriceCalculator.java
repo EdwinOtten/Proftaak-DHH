@@ -8,20 +8,17 @@ import java.util.List;
 /**
  * Created by Gijs on 10-2-14.
  *
- * Default price calculator.
+ * calculates discount based on percentage.
  */
-public class DefaultPriceCalculator implements PriceCalculator {
+public class PercentageDiscountPriceCalculator extends DefaultPriceCalculator {
+
 
     @Override
     public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
-        BigDecimal price = new BigDecimal(0);
 
-        for (WebOrderItem item : orderList) {
-            price.add(item.getPrice());
-        }
+        BigDecimal price = super.calculatePrice(orderList);
+        price.multiply(new BigDecimal(0.80));
 
         return price;
     }
-
-
 }
