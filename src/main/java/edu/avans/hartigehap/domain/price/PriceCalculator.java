@@ -2,6 +2,7 @@ package edu.avans.hartigehap.domain.price;
 
 import edu.avans.hartigehap.domain.WebOrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface PriceCalculator {
      * Calculates the total price of the weborder
      *
      * @param orderList     The ordered items.
-     * @return double       The price
+     * @return BigDecimal       The price
      */
-    double calculatePrice(List<WebOrderItem> orderList);
+    BigDecimal calculatePrice(List<WebOrderItem> orderList);
 }

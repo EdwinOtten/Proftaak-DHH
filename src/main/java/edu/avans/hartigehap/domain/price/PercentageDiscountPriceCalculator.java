@@ -2,6 +2,7 @@ package edu.avans.hartigehap.domain.price;
 
 import edu.avans.hartigehap.domain.WebOrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 public class PercentageDiscountPriceCalculator extends DefaultPriceCalculator {
 
     @Override
-    public double calculatePrice(List<WebOrderItem> orderList) {
-        return super.calculatePrice(orderList) * 0.25;
+    public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
+        return super.calculatePrice(orderList); /* do something with percentage here */
     }
 }

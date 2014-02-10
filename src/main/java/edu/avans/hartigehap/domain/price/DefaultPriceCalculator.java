@@ -2,6 +2,7 @@ package edu.avans.hartigehap.domain.price;
 
 import edu.avans.hartigehap.domain.WebOrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,7 +13,13 @@ import java.util.List;
 public class DefaultPriceCalculator implements PriceCalculator {
 
     @Override
-    public double calculatePrice(List<WebOrderItem> orderList) {
-        return 0;
+    public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
+        BigDecimal price = new BigDecimal(0);
+
+        for (WebOrderItem item : orderList) {
+          //  price =+ 0;
+        }
+
+        return price;
     }
 }
