@@ -1,5 +1,7 @@
 package edu.avans.hartigehap.domain;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Gijs on 10-2-14.
  *
@@ -7,5 +9,9 @@ package edu.avans.hartigehap.domain;
  */
 public class WebOrderItem {
 
+    /* stub */
+    public BigDecimal getPrice() {
+        return new BigDecimal(0);
+    }
 
 }

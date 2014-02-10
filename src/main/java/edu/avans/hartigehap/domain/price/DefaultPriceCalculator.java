@@ -17,9 +17,11 @@ public class DefaultPriceCalculator implements PriceCalculator {
         BigDecimal price = new BigDecimal(0);
 
         for (WebOrderItem item : orderList) {
-          //  price =+ 0;
+            price.add(item.getPrice());
         }
 
         return price;
     }
+
+
 }
