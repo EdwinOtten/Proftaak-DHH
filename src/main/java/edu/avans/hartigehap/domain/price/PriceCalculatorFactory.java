@@ -48,6 +48,8 @@ public class PriceCalculatorFactory {
             case Calendar.TUESDAY:
             case Calendar.WEDNESDAY:
             case Calendar.THURSDAY:
+                calculator = new HighestPriceDiscountPriceCalculator();
+                break;
             case Calendar.FRIDAY:
             case Calendar.SATURDAY:
             case Calendar.SUNDAY:
