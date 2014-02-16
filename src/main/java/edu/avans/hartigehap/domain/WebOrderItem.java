@@ -7,9 +7,7 @@ import java.util.Iterator;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "WEBORDERITEMS")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-@Getter @Setter
 @NoArgsConstructor
 public class WebOrderItem extends DomainObject {
 	
@@ -45,16 +42,30 @@ public class WebOrderItem extends DomainObject {
 		String description = "Een " + menuItem.getId();
 		if ( AdditionalIngredients.size() > 0) {
 			Iterator<AdditionalIngredient> itr = AdditionalIngredients.iterator();
-			description += " met: ";
+			description += " met:";
 			while (itr.hasNext()) {
-				description += itr.next().getName() + ", ";
+				description += " " + itr.next().getName() + ",";
 			}
+			// remove last comma
+			description = description.substring(0, description.length() - 1);
 		}
 		return description;
 	}
 	
 	public String getName() {
 		return menuItem.getId();
+	}
+	
+	public void addIngredient(AdditionalIngredient ingredient) {
+		this.AdditionalIngredients.add(ingredient);
+	}
+	
+	public void removeIngredient(AdditionalIngredient ingredient) {
+		this.AdditionalIngredients.remove(ingredient);
+	}
+	
+	public void removeIngredientAtIndex(int index) {
+		this.AdditionalIngredients.remove(index);
 	}
 	
 	

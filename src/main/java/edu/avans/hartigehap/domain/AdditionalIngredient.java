@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -23,7 +21,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "ADDITIONALINGREDIENTS")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @Getter @Setter
-@ToString(callSuper=true, includeFieldNames=true, of= {"name"})
 @NoArgsConstructor
 public class AdditionalIngredient extends DomainObject {
 	
