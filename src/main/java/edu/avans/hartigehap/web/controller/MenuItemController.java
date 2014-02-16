@@ -1,5 +1,6 @@
 package edu.avans.hartigehap.web.controller;
 
+import edu.avans.hartigehap.domain.Meal;
 import edu.avans.hartigehap.domain.MenuItem;
 import edu.avans.hartigehap.service.MenuItemService;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +30,15 @@ public class MenuItemController {
     @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.GET)
     public String listPizzaOverview(Model uiModel) {
 
-        List<MenuItem> pizzaList = menuItemService.findByFoodCategory(MenuItemService.PIZZA);
+       // List<MenuItem> pizzaList = menuItemService.findByFoodCategories(MenuItemService.PIZZA);
+
+        List<MenuItem> pizzaList = new ArrayList<MenuItem>();
+        MenuItem pizza = new Meal();
+        pizza.setPrice(5);
+        pizzaList.add(pizza);
+
         uiModel.addAttribute("pizzaList", pizzaList);
+
 
         return "hartigehap/listpizzas";
     }

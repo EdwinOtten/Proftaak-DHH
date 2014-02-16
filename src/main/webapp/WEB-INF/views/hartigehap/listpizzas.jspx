@@ -9,23 +9,23 @@
 
 
 
-    <h1>${labelRestaurantOverview}</h1>
+    <h1>Pizza Overzicht</h1>
 
-    <c:if test="${not empty message}">
-        <div id="message" class="${message.type}">${message.message}</div>
-    </c:if>
+
 
     <table>
         <thead>
         <tr>
-            <th>${labelRestaurants}</th>
+            <th>PizzaPrijs</th>
+            <th>PizzaWinkelwagenKnop</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${restaurants}" var="restaurant">
-            <spring:url var="showRestaurant" value="/restaurants/${restaurant.id}" />
+        <c:forEach items="${pizzaList}" var="pizza">
+
             <tr>
-                <td><a href="${showRestaurant}">${restaurant.id}</a></td>
+                <td>${pizza.price}</td>
+                <td><form method="post" action=""><input type="Submit" value="Winkelwagen" /></form></td>
             </tr>
         </c:forEach>
         </tbody>

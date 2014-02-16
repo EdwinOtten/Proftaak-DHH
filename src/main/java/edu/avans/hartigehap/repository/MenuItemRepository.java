@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MenuItemRepository extends PagingAndSortingRepository<MenuItem, String> {
 
-    List<MenuItem> findByFoodCategory(String category);
+    List<MenuItem> findByFoodCategories(String category);
 }

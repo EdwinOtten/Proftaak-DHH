@@ -20,6 +20,6 @@ public class MenuItemServiceImpl implements MenuItemService{
 
     @Override
     public List<MenuItem> findByFoodCategory(String category) {
-        return menuItemRepository.findByFoodCategory(category);
+        return menuItemRepository.findByFoodCategories(category);
     }
 }
