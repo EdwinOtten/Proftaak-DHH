@@ -6,58 +6,11 @@ import java.util.Iterator;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-    private int id;
-
-    /* stub */
-    public BigDecimal getPrice() {
-        return new BigDecimal(0);
-    }
-=======
-import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-=======
-
-import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-
-=======
-
-=======
-
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-<<<<<<< HEAD
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-=======
 
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-=======
-
-import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
-=======
->>>>>>> 7f84dfd06bb9040f59165902edf27c706a394922
 /**
  * 
  * @author Edwin
