@@ -2,13 +2,13 @@ package edu.avans.hartigehap.domain.weborder;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import edu.avans.hartigehap.domain.PriceCalculator;
+import edu.avans.hartigehap.domain.DomainObject;
+import edu.avans.hartigehap.domain.WebOrderItem;
+import edu.avans.hartigehap.domain.price.PriceCalculator;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
@@ -22,15 +22,32 @@ import java.util.ArrayList;
 @Getter
 @Setter
 //@ToString(callSuper=true, includeFieldNames=true, of= {"billStatus", "currentOrder", "orders"})
-public class WebOrder {
+public class WebOrder extends DomainObject {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private long id;
+    @Transient
     private PriceCalculator priceCalculator;
-    private Customer customer;
+    private WebCustomer customer;
     private ArrayList<WebOrderItem> webOrderItems;
     private enum state {
-        NEW, IN_PROGRESS, PAYED;
+        NEW, PAYED
+    }
+    
+    public void addWebOrderItem(WebOrderItem webOrderItem) {
+        webOrderItems.add(webOrderItem);
+    }
+
+    public void removeWebOrderItem(WebOrderItem webOrderItem) {
+        webOrderItems.remove(webOrderItem);
     }
 
     public WebOrder(PriceCalculator priceCalculator) {
         this.priceCalculator = priceCalculator;
     }
+
+    public WebOrder() {
+
+    }
 }
+

@@ -71,7 +71,7 @@ public class CustomerController {
 
 		warmupRestaurant(restaurantName, uiModel);
 		
-		logger.info("Customer update form for customer: " + id);
+		logger.info("WebCustomer update form for customer: " + id);
 		
 		Customer customer = customerService.findById(id);
 		uiModel.addAttribute("customer", customer);
