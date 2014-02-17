@@ -9,6 +9,8 @@ import java.math.BigDecimal;
  */
 public class WebOrderItem {
 
+    private int id;
+
     /* stub */
     public BigDecimal getPrice() {
         return new BigDecimal(0);
