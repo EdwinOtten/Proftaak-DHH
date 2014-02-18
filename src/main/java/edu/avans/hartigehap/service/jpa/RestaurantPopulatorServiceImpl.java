@@ -57,7 +57,13 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 		createMeal("canneloni", "canneloni.jpg", 9, "easy",
 			Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1)}));
 		createMeal("pizza", "pizza.jpg", 9, "easy",
-			Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1), foodCats.get(7)}));
+                Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1), foodCats.get(7)}));
+        createMeal("pizza valentijn", "pizza.jpg", 9, "easy",
+                Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1), foodCats.get(7)}));
+        createMeal("pizza kapsalon", "pizza.jpg", 9, "easy",
+                Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1), foodCats.get(7)}));
+        createMeal("pizza spare ribs", "pizza.jpg", 9, "easy",
+                Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(1), foodCats.get(7)}));
 		createMeal("carpaccio", "carpaccio.jpg", 7, "easy",
 			Arrays.<FoodCategory>asList(new FoodCategory[]{foodCats.get(3), foodCats.get(0)}));
 		createMeal("ravioli", "ravioli.jpg", 8, "easy",

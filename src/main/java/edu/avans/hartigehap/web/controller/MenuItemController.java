@@ -1,5 +1,6 @@
 package edu.avans.hartigehap.web.controller;
 
+import edu.avans.hartigehap.domain.FoodCategory;
 import edu.avans.hartigehap.domain.Meal;
 import edu.avans.hartigehap.domain.MenuItem;
 import edu.avans.hartigehap.service.MenuItemService;
@@ -30,12 +31,8 @@ public class MenuItemController {
     @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.GET)
     public String listPizzaOverview(Model uiModel) {
 
-       // List<MenuItem> pizzaList = menuItemService.findByFoodCategories(MenuItemService.PIZZA);
+       List<MenuItem> pizzaList = menuItemService.findByFoodCategoriesId(8L);
 
-        List<MenuItem> pizzaList = new ArrayList<MenuItem>();
-        MenuItem pizza = new Meal();
-        pizza.setPrice(5);
-        pizzaList.add(pizza);
 
         uiModel.addAttribute("pizzaList", pizzaList);
 

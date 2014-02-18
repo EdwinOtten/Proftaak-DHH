@@ -1,5 +1,6 @@
 package edu.avans.hartigehap.repository;
 
+import edu.avans.hartigehap.domain.FoodCategory;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import edu.avans.hartigehap.domain.MenuItem;
 
@@ -7,5 +8,5 @@ import java.util.List;
 
 public interface MenuItemRepository extends PagingAndSortingRepository<MenuItem, String> {
 
-    List<MenuItem> findByFoodCategories(String category);
+    List<MenuItem> findByFoodCategoriesId(long pizzaId);
 }

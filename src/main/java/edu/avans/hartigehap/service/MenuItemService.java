@@ -1,6 +1,7 @@
 package edu.avans.hartigehap.service;
 
 
+import edu.avans.hartigehap.domain.FoodCategory;
 import edu.avans.hartigehap.domain.MenuItem;
 
 import java.util.List;
@@ -9,7 +10,11 @@ import java.util.List;
  */
 public interface MenuItemService {
 
-    public static final String PIZZA = "pizza";
+    public static final long PIZZA = 8L;
 
-    List<MenuItem> findByFoodCategory(String category);
+
+    List<MenuItem> findByFoodCategoriesId(long pizzaId);
+
+
+
 }

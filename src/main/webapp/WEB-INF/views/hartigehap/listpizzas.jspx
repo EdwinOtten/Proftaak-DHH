@@ -7,25 +7,37 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
 
+    <spring:message code="label_pizza_overview" var="labelPizzaOverview" />
+    <spring:message code="label_name" var="labelName" />
+    <spring:message code="label_image" var="labelImage" />
+    <spring:message code="label_price" var="labelPrice" />
+    <spring:message code="label_actions" var="labelActions" />
+    <spring:message code="label_add_to_basket" var="labelAddToBasket" />
 
-
-    <h1>Pizza Overzicht</h1>
-
-
+    <h1>${labelPizzaOverview}</h1>
 
     <table>
         <thead>
         <tr>
-            <th>PizzaPrijs</th>
-            <th>PizzaWinkelwagenKnop</th>
+            <th>${labelName}</th>
+            <th>${labelImage}</th>
+            <th>${labelPrice}</th>
+            <th>${labelActions}</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${pizzaList}" var="pizza">
 
             <tr>
-                <td>${pizza.price}</td>
-                <td><form method="post" action=""><input type="Submit" value="Winkelwagen" /></form></td>
+                <td>${pizza.id}</td>
+                <td><img src="../../images/${pizza.imageFileName}" alt="${pizza.id}" width="100px" /></td>
+                <td>€ ${pizza.price}</td>
+                <td>
+                    <form method="post" action="">
+                        <input type="hidden" name="itemId" value="${pizza.id}" />
+                        <input type="Submit" value="${labelAddToBasket}" />
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
