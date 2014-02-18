@@ -155,7 +155,8 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
      */
     private void createWebOrderTest() {
 
-        WebOrder webOrder = new WebOrder(PriceCalculatorFactory.getInstance().create());
+        WebOrder webOrder = new WebOrder();
+        webOrder.setPriceCalculator(PriceCalculatorFactory.getInstance().create());
         WebCustomer webCustomer = new WebCustomer();
         webCustomer.setName("Sjaak Jansen");
         webCustomer.setAddress("Fietspad 1");

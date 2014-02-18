@@ -29,4 +29,7 @@
     <definition extends="default" name="hartigehap/webwinkel/winkelmandje">
         <put-attribute name="body" value="/WEB-INF/views/hartigehap/winkelmandje.jspx" />
     </definition>
+    <definition extends="default" name="hartigehap/webshop/editcustomer">
+        <put-attribute name="body" value="/WEB-INF/views/hartigehap/webshop/editcustomer.jspx" />
+    </definition>
 </tiles-definitions>

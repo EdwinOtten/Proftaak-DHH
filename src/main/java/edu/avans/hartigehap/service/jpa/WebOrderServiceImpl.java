@@ -46,14 +46,15 @@ public class WebOrderServiceImpl implements WebOrderService{
 
     @Override
     public long createNewWebOrder() {
-        WebOrder webOrder = new WebOrder(PriceCalculatorFactory.getInstance().create());
+        WebOrder webOrder = new WebOrder();
+        webOrder.setPriceCalculator(PriceCalculatorFactory.getInstance().create());
         save(webOrder);
         return webOrder.getId();
     }
 
     @Override
     public void setWebCustomer(long sessionId, WebCustomer webCustomer) {
-        WebOrder webOrder = webOrderRepo.findOne(sessionId);
+        WebOrder webOrder = getWebOrderById(sessionId);
         webOrder.setCustomer(webCustomer);
         webOrderRepo.save(webOrder);
     }
