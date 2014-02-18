@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.avans.hartigehap.domain.DomainObject;
 import edu.avans.hartigehap.domain.WebOrderItem;
 import edu.avans.hartigehap.domain.price.PriceCalculator;
+import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by David-Paul on 10-2-14.
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  */
 @Entity
 //optional
-@Table(name = "WEBORDERS")
+@Table(name = "WEBORDER")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @Getter
 @Setter
@@ -28,12 +30,18 @@ public class WebOrder extends DomainObject {
 //    private long id;
     @Transient
     private PriceCalculator priceCalculator;
+    @OneToOne
     private WebCustomer customer;
-    private ArrayList<WebOrderItem> webOrderItems;
-    private enum state {
+
+    @Column(name="state")
+    private WebOrderState webOrderState;
+    @OneToMany(mappedBy = "webOrder")
+    private Collection<WebOrderItem> webOrderItems;
+
+    public enum WebOrderState {
         NEW, PAYED
     }
-    
+
     public void addWebOrderItem(WebOrderItem webOrderItem) {
         webOrderItems.add(webOrderItem);
     }
@@ -42,12 +50,5 @@ public class WebOrder extends DomainObject {
         webOrderItems.remove(webOrderItem);
     }
 
-    public WebOrder(PriceCalculator priceCalculator) {
-        this.priceCalculator = priceCalculator;
-    }
-
-    public WebOrder() {
-
-    }
 }
 

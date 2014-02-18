@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import edu.avans.hartigehap.domain.weborder.WebOrder;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -16,11 +16,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @author Edwin
  */
 @Entity
-@Table(name = "WEBORDERITEMS")
+@Table(name = "WEBORDERITEM")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @NoArgsConstructor
 public class WebOrderItem extends DomainObject {
-	
+	@ManyToOne
+    @JoinColumn(name="weborder_id")
+    private WebOrder webOrder;
+
 	private MenuItem menuItem;
 	private ArrayList<AdditionalIngredient> AdditionalIngredients;
 	

@@ -41,16 +41,16 @@ public class WebOrderController {
         if (webOrder == null) {
 //            uiModel.addAttribute("error", "WebOrder is null");
             createNewWebOrder(webOrderId, uiModel, response);
-        } else {
-            if (webOrder.getCustomer() != null) {
-                uiModel.addAttribute("result", webOrder.getCustomer().getName());
-            }
+        } else if (webOrder.getCustomer() != null) {
+            uiModel.addAttribute("result", webOrder.getCustomer().getName());
         }
 
 //        uiModel.addAttribute("webOrderId", "Cookieid " + webOrderId + " was already set." + "\n " );
 
         return "hartigehap/webwinkel/winkelmandje";
     }
+
+
 
     private void createNewWebOrder(long cookieid, Model uiModel, HttpServletResponse response) {
         cookieid = webOrderService.createNewWebOrder();
