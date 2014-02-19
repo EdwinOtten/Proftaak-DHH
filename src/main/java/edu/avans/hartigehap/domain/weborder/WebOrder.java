@@ -39,7 +39,7 @@ public class WebOrder extends DomainObject {
     private Collection<WebOrderItem> webOrderItems;
 
     public enum WebOrderState {
-        NEW, PAYED
+        NEW, PAID
     }
 
     public void addWebOrderItem(WebOrderItem webOrderItem) {
