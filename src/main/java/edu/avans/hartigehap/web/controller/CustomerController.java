@@ -71,7 +71,7 @@ public class CustomerController {
 
 		warmupRestaurant(restaurantName, uiModel);
 		
-		logger.info("Customer update form for customer: " + id);
+		logger.info("WebCustomer update form for customer: " + id);
 		
 		Customer customer = customerService.findById(id);
 		uiModel.addAttribute("customer", customer);
@@ -139,19 +139,19 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/restaurants/{restaurantName}/customers", params = "form", method = RequestMethod.GET)
-	public String createCustomerForm(@PathVariable("restaurantName") String restaurantName, Model uiModel) {
+    public String createCustomerForm(@PathVariable("restaurantName") String restaurantName, Model uiModel) {
 
-		warmupRestaurant(restaurantName, uiModel);
-		
-		logger.info("Create customer form");
-		
-		Customer customer = new Customer();
-		uiModel.addAttribute("customer", customer);
-		return "hartigehap/editcustomer";
-	}
-	
+        warmupRestaurant(restaurantName, uiModel);
 
-	@RequestMapping(value = "/restaurants/{restaurantName}/customers", params = "form", method = RequestMethod.POST)
+        logger.info("Create customer form");
+
+        Customer customer = new Customer();
+        uiModel.addAttribute("customer", customer);
+        return "hartigehap/editcustomer";
+    }
+
+
+    @RequestMapping(value = "/restaurants/{restaurantName}/customers", params = "form", method = RequestMethod.POST)
 	public String createCustomer(@PathVariable("restaurantName") String restaurantName, @Valid Customer customer, BindingResult bindingResult,
 		Model uiModel, HttpServletRequest httpServletRequest,
 		RedirectAttributes redirectAttributes, Locale locale,

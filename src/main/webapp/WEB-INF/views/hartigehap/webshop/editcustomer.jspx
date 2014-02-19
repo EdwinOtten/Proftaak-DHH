@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="body" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+
+    <h1>
+        Klantgegevens invoeren
+    </h1>
+
+    <form:form modelAttribute="customer" id="customerUpdateForm"
+               enctype="multipart/form-data" method="${customer.id==null ? 'post':'put'}">
+        <!-- Naam -->
+        <form:label path="name">
+            Naam:
+        </form:label>
+        <form:input path="name" />
+        <div>
+            <form:errors path="name" cssClass="error" />
+        </div>
+        <br />
+
+        <!-- Adres -->
+        <form:label path="address">
+            Naam:
+        </form:label>
+        <form:input path="address" />
+        <div>
+            <form:errors path="address" cssClass="error" />
+        </div>
+        <br />
+
+        <!-- Stad -->
+        <form:label path="city">
+            Stad:
+        </form:label>
+        <form:input path="city" />
+        <div>
+            <form:errors path="city" cssClass="error" />
+        </div>
+        <br />
+        <button type="submit"
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Save</span>
+        </button>
+        <button type="reset"
+                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Reset</span>
+        </button>
+
+    </form:form>
+
+</div>

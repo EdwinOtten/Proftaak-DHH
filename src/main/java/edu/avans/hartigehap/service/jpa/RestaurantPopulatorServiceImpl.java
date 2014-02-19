@@ -2,6 +2,9 @@ package edu.avans.hartigehap.service.jpa;
 
 import java.util.*;
 
+import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
+import edu.avans.hartigehap.domain.weborder.WebCustomer;
+import edu.avans.hartigehap.domain.weborder.WebOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,10 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 	private MenuItemRepository menuItemRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
+    @Autowired
+    private WebOrderRepository webOrderRepository;
+    @Autowired
+    private WebCustomerRepository webCustomerRepository;
 	
 	private List<Meal> meals = new ArrayList<Meal>();
 	private List<FoodCategory> foodCats = new ArrayList<FoodCategory>();
@@ -149,6 +156,25 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 		restaurantRepository.save(restaurant);
 	}
 
+    /**
+     * @Author: David-Paul
+     * Creates a test Order to test the shopping basket.
+     */
+    private void createWebOrderTest() {
+
+        WebOrder webOrder = new WebOrder();
+        webOrder.setPriceCalculator(PriceCalculatorFactory.getInstance().create());
+        WebCustomer webCustomer = new WebCustomer();
+        webCustomer.setName("Sjaak Jansen");
+        webCustomer.setAddress("Fietspad 1");
+        webCustomer.setCity("Arcen");
+        
+        webOrder.setCustomer(webCustomer);
+        webCustomerRepository.save(webCustomer);
+//        webOrder.addWebOrderItem(new WebOrderItem());
+//        webOrder.addWebOrderItem(new WebOrderItem());
+        webOrderRepository.save(webOrder);
+    }
 	
 	public void createRestaurantsWithInventory() {
 		
@@ -162,5 +188,7 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 		
 		restaurant = new Restaurant(HMMMBURGER_RESTAURANT_NAME, "deHmmmBurger.jpg");
 		populateRestaurant(restaurant);
+
+//        createWebOrderTest();
 	}	
 }

@@ -5,3 +5,4 @@
 /.idea
 /*.log
 hh-B2.iml
+src/main/java/edu/avans/hartigehap/domain/WebOrderItem.java
