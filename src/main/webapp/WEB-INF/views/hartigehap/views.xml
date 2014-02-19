@@ -26,6 +26,9 @@
 	<definition extends="default" name="hartigehap/editcustomer">
 		<put-attribute name="body" value="/WEB-INF/views/hartigehap/editcustomer.jspx" />
 	</definition>
+    <definition extends="default" name="hartigehap/listpizzas">
+        <put-attribute name="body" value="/WEB-INF/views/hartigehap/listpizzas.jspx" />
+    </definition>
     <definition extends="default" name="hartigehap/webwinkel/winkelmandje">
         <put-attribute name="body" value="/WEB-INF/views/hartigehap/winkelmandje.jspx" />
     </definition>
