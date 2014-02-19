@@ -14,7 +14,7 @@
 
     <div id="appname">
 		<spring:url var="showRestMgtSystem" value="/restaurants" />													
-   		<a href="${showRestMgtSystem}"><h3>${headerText}</h3></a>
+   		<a href="${showRestMgtSystem}"><h1>${headerText}</h1></a>
 	</div>
 	
     <div id="userinfo">

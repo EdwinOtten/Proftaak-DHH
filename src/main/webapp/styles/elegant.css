@@ -6,6 +6,9 @@ body,div,td {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #222;
+	margin:0;
+   	padding:0;
+   	height:100%;
 }
 
 body {
@@ -19,7 +22,7 @@ body {
 #appname {
     float: left;
     margin: 5;
-    padding: 5px 0px;
+    padding: 5px 5px 5px 10px;
     font-size: 150%;
     vertical-align: middle;
 }
@@ -44,7 +47,7 @@ body {
 } 
 
 #headerWrapper {
-	background:#FF6347;
+	background:#029981;
 	width:950px;
     min-width: 950px;
     max-width: 950px;
@@ -64,6 +67,7 @@ body {
 	max-width: 950px;
 	margin-right: auto;
 	margin-left: auto;
+	background-color:#ECECEC;
 
 	/* fix max-width incompatibility in IE6 */
 	width:expression(document.body.clientWidth > 950? "950px": "auto" );
@@ -80,12 +84,13 @@ body {
 }
 
 #menu {
-	background: #1ee;
+	background: #029981;
 	position:relative;
 	float:left;  	
 	left:0px;
 	width:200px;
 	margin-right:15px;
+	padding-left:10px;
 }
 
 #menu ul{
@@ -108,7 +113,7 @@ body {
 
 #menu h2 {
 	color: #fff;
-	background: #648C1D;
+	background: #029981;
 	text-transform: uppercase;
 	font-weight:bold;
 	font-size: 12px;
@@ -116,31 +121,34 @@ body {
 
 #menu a {
 	color: #333333;
-	background: #1fefef;
+	background: #029981;
 	text-decoration: none;
 	padding: 2px 12px;
 }
 
 #menu a:hover {
-	color: #648C1D;
+	color: #000;
 	background: #fff;
 }
 
 #footer {
-	background:#7EEFD4;
+	background:#fff;
 	border:none;
 	margin-top:15px;
 	border-top:1px solid #999999;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
 }
 
 #footer .new {
 	float:left;
 }
 
-#footer a:link {color: #7db223;}
+#footer a:link {color: #000;}
 
 #body {
-	background:#EFFF00
+	/*background:#EFFF00 */
 }
 
 #menuitemimg {
@@ -203,23 +211,23 @@ a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;}
 
 h1,h2,h3 {
 	font-family: Helvetica, sans-serif;
-	color: black;
+	color: #000;
 }
 
 h1 {
-	font-size: 20px;
+	font-size: 25px;
 	line-height: 26px;
 }
 
 h2 {
-	font-size: 18px;
+	font-size: 29px;
 	line-height: 20px;
 }
 
 h3 {
 	font-size: 15px;
 	line-height: 21px;
-	color:#555;
+	color:#000;
 }
 
 h4 {
@@ -253,7 +261,8 @@ tr:nth-child(even) {
 }
 
 a:link {
-	color: #7db223;
+	color: #00AD15;
+	text-decoration:none;
 }
 
 a:hover {
@@ -261,11 +270,11 @@ a:hover {
 }
 
 a:active {
-	color: #7db223;
+	color: #00AD15;
 }
 
 a:visited {
-	color: #7db223;
+	color: #000;
 }
 
 li {
@@ -283,7 +292,7 @@ table {
 	margin: 2px 0 0 0;
 	border: 1px solid #EBBBBB;
 	border-collapse: collapse;
-	width: 100%
+	width: 100%;
 }
 
 
@@ -296,7 +305,7 @@ table table {
 
 table td,table th {
 	border: 2px solid black;
-	padding: 5px 5px 5px 5px;
+	/*padding: 5px 5px 5px 5px;*/
 	text-align: left;
 }
 
@@ -310,8 +319,8 @@ table th {
 	font-size: 11px;
 	text-align: left;
 	font-weight: bold;
-	color: #1FF;
-	background: #899;
+	color: #000;
+	background: #029981;
 }
 
 table thead {
