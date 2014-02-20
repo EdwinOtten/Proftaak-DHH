@@ -9,7 +9,40 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
 
-    <h3>${webOrderId}</h3>
+	<h1>Welkom ${customerName}</h1>
+	<h2>Uw bestelling</h2>
+    <h4>bestelnummer ${webOrderId}</h4>
     <h4>Error: ${error}</h4>
-    <p>Result: ${result}</p>
+    
+    <table>
+        <thead>
+       	<tr>
+    		<th>Afbeelding</th>
+    		<th>Product</th>
+    		<th>Prijs</th>
+    	</tr>
+        </thead>
+        <tbody>
+        <tr>
+    		<th>imagehere</th>
+    		<th>Hardcoded voorbeeld</th>
+    		<th>&euro; 6,40</th>
+    	</tr>
+        <c:forEach items="${orderItems}" var="orderItem">
+
+            <tr>
+                <td><img src="../../images/${pizza.imageFileName}" alt="${pizza.id}" width="100px" /></td>
+                <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
+                <td>€ ${orderItem.getPrice}</td>
+                <td>
+                    <form method="post" action="">
+                        <input type="hidden" name="orderItemId" value="${orderItem.id}" />
+                        <input type="Submit" value="verwijder" />
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+   
 </div>
