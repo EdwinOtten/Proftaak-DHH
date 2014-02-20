@@ -28,7 +28,7 @@ public class WebOrderItem extends DomainObject {
 	@OneToOne
 	private MenuItem menuItem;
 	
-    @ManyToMany(mappedBy = "webOrderItem")
+    @ManyToMany
 	private Collection<AdditionalIngredient> additionalIngredients;
 	
 	private static final long serialVersionUID = 1L;

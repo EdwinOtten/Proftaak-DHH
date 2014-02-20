@@ -6,3 +6,4 @@
 /*.log
 hh-B2.iml
 src/main/java/edu/avans/hartigehap/domain/WebOrderItem.java
+src/main/resources/datasource-tx-jpa.xml
