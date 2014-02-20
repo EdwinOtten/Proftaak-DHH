@@ -1,6 +1,7 @@
 package edu.avans.hartigehap.domain;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -43,6 +44,13 @@ public class WebOrderItem extends DomainObject {
 			}
 		}
 		return totalPrice;
+	}
+	
+	public String getPriceString() {
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(2);
+		nf.setMinimumFractionDigits(2);
+		return nf.format(getPrice());
 	}
 	
 	public String getDescription() {
