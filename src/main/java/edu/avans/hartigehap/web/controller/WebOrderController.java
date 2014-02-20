@@ -102,10 +102,10 @@ public class WebOrderController {
             uiModel.addAttribute("customerName", "");
         }
         
-//        if (webOrder != null) {
-//	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
-//	        uiModel.addAttribute("orderItems", webOrderItems);
-//        }
+        if (webOrder != null) {
+	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
+	        uiModel.addAttribute("orderItems", webOrderItems);
+        }
         
 
         return "hartigehap/webwinkel/winkelmandje";
