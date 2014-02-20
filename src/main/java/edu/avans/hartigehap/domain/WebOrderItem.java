@@ -7,8 +7,12 @@ import java.util.Iterator;
 
 import javax.persistence.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import edu.avans.hartigehap.domain.weborder.WebOrder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -27,6 +31,8 @@ public class WebOrderItem extends DomainObject {
     private WebOrder webOrder;
 
 	@OneToOne
+	@Getter
+	@Setter
 	private MenuItem menuItem;
 	
     @ManyToMany
