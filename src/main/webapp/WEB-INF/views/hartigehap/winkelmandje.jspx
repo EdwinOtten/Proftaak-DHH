@@ -9,7 +9,35 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
 
-    <h3>${webOrderId}</h3>
-    <h4>Error: ${error}</h4>
-    <p>Result: ${result}</p>
+	<h1>Welkom ${customerName}</h1>
+	<h2>Uw bestelling</h2>
+    <h4>bestelnummer ${webOrderId}</h4>
+    <h4>Insert een voorbeeld product:</h4>
+    <pre>INSERT INTO weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
+    
+    <table>
+        <thead>
+       	<tr>
+    		<th>Product</th>
+    		<th>Prijs</th>
+    		<th>Acties</th>
+    	</tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${orderItems}" var="orderItem">
+
+            <tr>
+                <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
+                <td>€ ${orderItem.getPriceString()}</td>
+                <td>
+                    <form method="post" action="">
+                        <input type="hidden" name="orderItemId" value="${orderItem.id}" />
+                        <input type="Submit" value="verwijder" />
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+   
 </div>

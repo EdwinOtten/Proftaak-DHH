@@ -10,6 +10,7 @@ import edu.avans.hartigehap.repository.WebCustomerRepository;
 import edu.avans.hartigehap.service.WebCustomerService;
 import edu.avans.hartigehap.service.WebOrderService;
 import edu.avans.hartigehap.web.form.Message;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,6 +84,8 @@ public class WebOrderController {
     public String showBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response) {
         long webOrderId = extractIdFromCookieValue(cookieValue);
 
+        uiModel.addAttribute("webOrderId", webOrderId);
+
         if (webOrderId < 0) {
             // Either the cookie has been messed with or does not exist.
             createNewWebOrder(webOrderId, uiModel, response);
@@ -92,10 +97,16 @@ public class WebOrderController {
 //            uiModel.addAttribute("error", "WebOrder is null");
             createNewWebOrder(webOrderId, uiModel, response);
         } else if (webOrder.getCustomer() != null) {
-            uiModel.addAttribute("result", webOrder.getCustomer().getName());
+            uiModel.addAttribute("customerName", webOrder.getCustomer().getName());
+        } else {
+            uiModel.addAttribute("customerName", "");
         }
-
-//        uiModel.addAttribute("webOrderId", "Cookieid " + webOrderId + " was already set." + "\n " );
+        
+        if (webOrder != null) {
+	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
+	        uiModel.addAttribute("orderItems", webOrderItems);
+        }
+        
 
         return "hartigehap/webwinkel/winkelmandje";
     }
@@ -107,7 +118,6 @@ public class WebOrderController {
         Cookie newCookie = new Cookie("webOrderId", "" + cookieid);
         newCookie.setMaxAge(60 * 60 * 24 *5);
         response.addCookie(newCookie);
-        uiModel.addAttribute("webOrderId", "New Cookie id" + cookieid + " is been set.");
     }
 
     /**
