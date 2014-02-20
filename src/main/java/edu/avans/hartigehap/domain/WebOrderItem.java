@@ -1,13 +1,14 @@
 package edu.avans.hartigehap.domain;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import javax.persistence.*;
 
 import edu.avans.hartigehap.domain.weborder.WebOrder;
 import lombok.NoArgsConstructor;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -24,16 +25,19 @@ public class WebOrderItem extends DomainObject {
     @JoinColumn(name="weborder_id")
     private WebOrder webOrder;
 
+	@OneToOne
 	private MenuItem menuItem;
-	private ArrayList<AdditionalIngredient> AdditionalIngredients;
+	
+    @ManyToMany
+	private Collection<AdditionalIngredient> additionalIngredients;
 	
 	private static final long serialVersionUID = 1L;
 	
 	public BigDecimal getPrice() {
 		BigDecimal totalPrice = new BigDecimal(menuItem.getPrice());
 		
-		if ( AdditionalIngredients.size() > 0) {
-			Iterator<AdditionalIngredient> itr = AdditionalIngredients.iterator();
+		if ( additionalIngredients.size() > 0) {
+			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
 			while (itr.hasNext()) {
 				totalPrice = totalPrice.add(itr.next().getPrice());
 			}
@@ -43,8 +47,8 @@ public class WebOrderItem extends DomainObject {
 	
 	public String getDescription() {
 		String description = "Een " + menuItem.getId();
-		if ( AdditionalIngredients.size() > 0) {
-			Iterator<AdditionalIngredient> itr = AdditionalIngredients.iterator();
+		if ( additionalIngredients.size() > 0) {
+			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
 			description += " met:";
 			while (itr.hasNext()) {
 				description += " " + itr.next().getName() + ",";
@@ -60,15 +64,15 @@ public class WebOrderItem extends DomainObject {
 	}
 	
 	public void addIngredient(AdditionalIngredient ingredient) {
-		this.AdditionalIngredients.add(ingredient);
+		this.additionalIngredients.add(ingredient);
 	}
 	
 	public void removeIngredient(AdditionalIngredient ingredient) {
-		this.AdditionalIngredients.remove(ingredient);
+		this.additionalIngredients.remove(ingredient);
 	}
 	
 	public void removeIngredientAtIndex(int index) {
-		this.AdditionalIngredients.remove(index);
+		this.additionalIngredients.remove(index);
 	}
 	
 	
