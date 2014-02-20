@@ -10,6 +10,7 @@ import edu.avans.hartigehap.repository.WebCustomerRepository;
 import edu.avans.hartigehap.service.WebCustomerService;
 import edu.avans.hartigehap.service.WebOrderService;
 import edu.avans.hartigehap.web.form.Message;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +43,20 @@ public class WebOrderController {
     private WebCustomerService webCustomerService;
     @Autowired
     private MessageSource messageSource;
+    
+    /**
+     * @Todo:
+     * 1) MenuItem ophalen a.d.h.v. itemid - Gijs - MenuItemService
+     * 2) WebOrderItem aanmaken o.b.v. menuitem - 
+     * 3) Huidige WebOrder ophalen en voeg WebOrderItem aan WebOrder.
+     * @param itemid
+     * @return
+     */
+    @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
+    public String addToBasket(@RequestParam("itemId") String itemid)	{
+    	
+    	return "redirect:/webwinkel/overzicht";
+    }
 
     @RequestMapping(value = "weborders/{weborderid}/customers", params = "form", method = RequestMethod.GET)
     public String createCustomerForm(@PathVariable("weborderid") long id, Model uiModel) {
