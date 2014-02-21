@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.avans.hartigehap.domain.DomainObject;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by David-Paul on 10-2-14.
@@ -24,11 +26,15 @@ public class WebCustomer extends DomainObject {
 //    private long id;
 
     @NotNull
+    @Size(min=2, max=40)
     private String name;
 
     @NotNull
+    @Size(min=2, max=40)
     private String address;
 
+
     @NotNull
+    @Size(min=2, max=40)
     private String city;
 }

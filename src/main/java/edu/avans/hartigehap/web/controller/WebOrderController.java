@@ -56,16 +56,18 @@ public class WebOrderController {
     }
 
     @RequestMapping(value = "weborders/{weborderid}/customers", params="form", method= RequestMethod.POST)
-    public String createCustomer(@PathVariable("weborderid") long id, @Valid WebCustomer customer, BindingResult bindingResult,
-                                 Model uiModel, HttpServletRequest httpServletRequest,
-                                 RedirectAttributes redirectAttributes, Locale locale) {
+    public String finishOrder(@PathVariable("weborderid") long id, @Valid WebCustomer customer, BindingResult bindingResult,
+                              Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response,
+                              RedirectAttributes redirectAttributes, Locale locale,
+                              @CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue) {
+        //Save Webcustomer:
         if(bindingResult.hasErrors()) {
             uiModel.addAttribute(
                     "message",
                     new Message("error", messageSource.getMessage(
                             "customer_save_fail", new Object[] {}, locale)));
             uiModel.addAttribute("customer", customer);
-            return "hartigehap/editcustomer";
+            return "hartigehap/webshop/editcustomer";
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute(
@@ -79,8 +81,19 @@ public class WebOrderController {
 //                + UrlUtil.encodeUrlPathSegment(storedCustomer.getId().toString(),
 //                httpServletRequest);
 
-        return "hartigehap/webwinkel/winkelmandje";
 
+        webOrderService.finishOrder(id);
+
+        Cookie newCookie = new Cookie("webOrderId", "" + -1);
+        newCookie.setMaxAge(0);
+        response.addCookie(newCookie);
+
+        return "redirect:/weborder/finished";
+    }
+
+    @RequestMapping(value="weborder/finished", method = RequestMethod.GET)
+    public String showWebOrderFinished() {
+        return "hartigehap/showfinishedweborder";
     }
 
 
