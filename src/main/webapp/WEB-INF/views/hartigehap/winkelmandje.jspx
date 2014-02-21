@@ -13,7 +13,7 @@
 	<h2>Uw bestelling</h2>
     <h4>bestelnummer ${webOrderId}</h4>
     <h4>Insert een voorbeeld product:</h4>
-    <pre>INSERT INTO weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
+    <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
     
     <table>
         <thead>
