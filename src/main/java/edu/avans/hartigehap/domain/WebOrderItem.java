@@ -25,6 +25,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "WEBORDERITEM")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @NoArgsConstructor
+@Getter
+@Setter
 public class WebOrderItem extends DomainObject {
 	@ManyToOne
     @JoinColumn(name="weborder_id")

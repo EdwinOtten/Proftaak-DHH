@@ -13,11 +13,12 @@
 	<h2>Uw bestelling</h2>
     <h4>bestelnummer ${webOrderId}</h4>
     <h4>Insert een voorbeeld product:</h4>
-    <pre>INSERT INTO weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
+    <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
     
     <table>
         <thead>
        	<tr>
+       		<th>Productafbeelding</th>
     		<th>Product</th>
     		<th>Prijs</th>
     		<th>Acties</th>
@@ -27,6 +28,7 @@
         <c:forEach items="${orderItems}" var="orderItem">
 
             <tr>
+            	<td><img src="../images/${orderItem.getMenuItem().imageFileName}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>
