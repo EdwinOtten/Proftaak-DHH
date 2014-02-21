@@ -18,6 +18,7 @@
     <table>
         <thead>
        	<tr>
+       		<th>Productafbeelding</th>
     		<th>Product</th>
     		<th>Prijs</th>
     		<th>Acties</th>
@@ -27,6 +28,7 @@
         <c:forEach items="${orderItems}" var="orderItem">
 
             <tr>
+            	<td><img src="../images/${orderItem.getMenuItem().imageFileName}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>

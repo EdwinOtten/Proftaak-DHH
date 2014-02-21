@@ -8,7 +8,9 @@ import java.util.Iterator;
 import javax.persistence.*;
 
 import edu.avans.hartigehap.domain.weborder.WebOrder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,6 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "WEBORDERITEM")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @NoArgsConstructor
+@Getter
+@Setter
 public class WebOrderItem extends DomainObject {
 	@ManyToOne
     @JoinColumn(name="weborder_id")
