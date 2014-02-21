@@ -7,8 +7,10 @@ import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
 import edu.avans.hartigehap.repository.WebCustomerRepository;
+import edu.avans.hartigehap.repository.WebOrderItemRepository;
 import edu.avans.hartigehap.service.WebCustomerService;
 import edu.avans.hartigehap.service.WebOrderService;
+import edu.avans.hartigehap.service.WebOrderItemService;
 import edu.avans.hartigehap.web.form.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ import java.util.Locale;
 public class WebOrderController {
     @Autowired
     private WebOrderService webOrderService;
+    @Autowired
+    private WebOrderItemService webOrderItemService;
     @Autowired
     private WebCustomerService webCustomerService;
     @Autowired
@@ -109,6 +113,27 @@ public class WebOrderController {
         
 
         return "hartigehap/webwinkel/winkelmandje";
+    }
+    
+    @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.DELETE)
+    public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId) {
+    	
+
+        long webOrderId = extractIdFromCookieValue(cookieValue);
+    	System.out.println("You requested to delete "+orderItemId+" from order "+webOrderId);
+
+        if (webOrderId > 0) {    
+	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+	        if (webOrder != null) {
+	        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
+//		        webOrder.removeWebOrderItem(deleteThis);
+//		        webOrderService.save(webOrder);
+		        webOrderItemService.deleteWebOrderItem(deleteThis);
+		        
+	        } 
+        }
+
+        return "redirect:/webwinkel/winkelmandje";
     }
 
 

@@ -46,9 +46,5 @@ public class WebOrder extends DomainObject {
         webOrderItems.add(webOrderItem);
     }
 
-    public void removeWebOrderItem(WebOrderItem webOrderItem) {
-        webOrderItems.remove(webOrderItem);
-    }
-
 }
 
