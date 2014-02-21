@@ -53,8 +53,19 @@ public class WebOrderController {
      * @return
      */
     @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
-    public String addToBasket(@RequestParam("itemId") String itemid)	{
-    	
+    public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, @RequestParam("itemId") String itemid
+    		,HttpServletResponse response) {
+    	long webOrderId = extractIdFromCookieValue(cookieValue);
+
+        if (webOrderId < 0) {
+            // Either the cookie has been messed with or does not exist.
+            webOrderId = createNewWebOrder(response);
+        }
+
+        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+         
+        webOrderService.addToWebOrder(webOrder, itemid);  
+        
     	return "redirect:/webwinkel/overzicht";
     }
 
@@ -100,14 +111,14 @@ public class WebOrderController {
 
         if (webOrderId < 0) {
             // Either the cookie has been messed with or does not exist.
-            createNewWebOrder(webOrderId, uiModel, response);
+            webOrderId = createNewWebOrder(response);
         }
 
         WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
 
         if (webOrder == null) {
 //            uiModel.addAttribute("error", "WebOrder is null");
-            createNewWebOrder(webOrderId, uiModel, response);
+            createNewWebOrder(response);
         } else if (webOrder.getCustomer() != null) {
             uiModel.addAttribute("result", webOrder.getCustomer().getName());
         }
@@ -119,12 +130,12 @@ public class WebOrderController {
 
 
 
-    private void createNewWebOrder(long cookieid, Model uiModel, HttpServletResponse response) {
-        cookieid = webOrderService.createNewWebOrder();
+    private long createNewWebOrder(HttpServletResponse response) {
+        long cookieid = webOrderService.createNewWebOrder();
         Cookie newCookie = new Cookie("webOrderId", "" + cookieid);
         newCookie.setMaxAge(60 * 60 * 24 *5);
         response.addCookie(newCookie);
-        uiModel.addAttribute("webOrderId", "New Cookie id" + cookieid + " is been set.");
+        return cookieid;
     }
 
     /**

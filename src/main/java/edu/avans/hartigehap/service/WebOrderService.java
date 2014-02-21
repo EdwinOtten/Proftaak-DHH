@@ -25,4 +25,5 @@ public interface WebOrderService {
 
 //    List<WebOrder> findAll();
 //    Page<WebOrder> findAllByPage(Pageable pageable);
+    void addToWebOrder (WebOrder order, String name);	
 }

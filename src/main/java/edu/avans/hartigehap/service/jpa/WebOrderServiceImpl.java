@@ -6,8 +6,10 @@ import edu.avans.hartigehap.domain.WebOrderItem;
 import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
+import edu.avans.hartigehap.repository.MenuItemRepository;
 import edu.avans.hartigehap.repository.WebOrderRepository;
 import edu.avans.hartigehap.service.WebOrderService;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,12 @@ public class WebOrderServiceImpl implements WebOrderService{
 
     @Autowired
     private WebOrderRepository webOrderRepo;
+    
+    @Autowired
+    private MenuItemRepository menuItemRepo;
+    
+    @Autowired
+    private WebOrderItemRepository webOrderItemRepo;
 
     @Transactional(readOnly = true)
     @Override
@@ -58,4 +66,21 @@ public class WebOrderServiceImpl implements WebOrderService{
         webOrder.setCustomer(webCustomer);
         webOrderRepo.save(webOrder);
     }
+
+	@Override
+	public void addToWebOrder(WebOrder order, String name) {
+		MenuItem menuItem = menuItemRepo.findOne(name);
+		if(name == null)	{ 
+			System.out.print("probleem hij is leeg");
+		}
+		
+		WebOrderItem item = new WebOrderItem();
+		item.setMenuItem(menuItem);
+		
+		order.addWebOrderItem(item);
+		
+		
+		
+		//webOrderRepo.save(order);
+	}
 }
