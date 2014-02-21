@@ -8,6 +8,8 @@
      version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
+    
+    <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
 	<h1>Welkom ${customerName}</h1>
 	<h2>Uw bestelling</h2>
@@ -42,5 +44,9 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <form method="post" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
+         <input type="Submit" value="Bestellen" />
+     </form>
    
 </div>
