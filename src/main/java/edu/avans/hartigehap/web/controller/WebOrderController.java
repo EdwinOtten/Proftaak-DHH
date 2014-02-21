@@ -7,6 +7,7 @@ import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
 import edu.avans.hartigehap.repository.WebCustomerRepository;
+import edu.avans.hartigehap.repository.WebOrderItemRepository;
 import edu.avans.hartigehap.service.WebCustomerService;
 import edu.avans.hartigehap.service.WebOrderService;
 import edu.avans.hartigehap.service.WebOrderItemService;
@@ -114,20 +115,25 @@ public class WebOrderController {
         return "hartigehap/webwinkel/winkelmandje";
     }
     
-    @RequestMapping(value = "webwinkel/winkelmandje/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.DELETE)
     public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId) {
     	
- 
+
         long webOrderId = extractIdFromCookieValue(cookieValue);
+    	System.out.println("You requested to delete "+orderItemId+" from order "+webOrderId);
 
         if (webOrderId > 0) {    
 	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
 	        if (webOrder != null) {
-		        webOrder.removeWebOrderItem(webOrderItemService.getWebOrderItemById(orderItemId));
-	        }
+	        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
+//		        webOrder.removeWebOrderItem(deleteThis);
+//		        webOrderService.save(webOrder);
+		        webOrderItemService.deleteWebOrderItem(deleteThis);
+		        
+	        } 
         }
 
-        return "hartigehap/webwinkel/winkelmandje";
+        return "redirect:/webwinkel/winkelmandje";
     }
 
 

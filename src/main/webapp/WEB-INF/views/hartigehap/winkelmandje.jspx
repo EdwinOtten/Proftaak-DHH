@@ -30,7 +30,8 @@
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>
-                    <form method="delete" action="">
+                    <form method="post" action="">
+                        <input type="hidden" name="_method" value="DELETE" />
                         <input type="hidden" name="orderItemId" value="${orderItem.id}" />
                         <input type="Submit" value="verwijder" />
                     </form>
