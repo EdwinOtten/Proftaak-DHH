@@ -42,6 +42,10 @@ public class WebOrder extends DomainObject {
         NEW, PAID
     }
 
+    public void finishWebOrder() {
+        setWebOrderState(WebOrderState.PAID);
+    }
+
     public void addWebOrderItem(WebOrderItem webOrderItem) {
         webOrderItems.add(webOrderItem);
     }

@@ -12,6 +12,10 @@
         Klantgegevens invoeren
     </h1>
 
+    <p>
+        ${message.getMessage()}
+    </p>
+
     <form:form modelAttribute="customer" id="customerUpdateForm"
                enctype="multipart/form-data" method="${customer.id==null ? 'post':'put'}">
         <!-- Naam -->
@@ -26,7 +30,7 @@
 
         <!-- Adres -->
         <form:label path="address">
-            Naam:
+            Adres:
         </form:label>
         <form:input path="address" />
         <div>
@@ -45,12 +49,12 @@
         <br />
         <button type="submit"
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <span class="ui-button-text">Save</span>
+            <span class="ui-button-text">Bestellen en betalen</span>
         </button>
-        <button type="reset"
+        <!--button type="reset"
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
             <span class="ui-button-text">Reset</span>
-        </button>
+        </button-->
 
     </form:form>
 
