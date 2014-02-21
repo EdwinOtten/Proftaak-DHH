@@ -83,4 +83,10 @@ public class WebOrderServiceImpl implements WebOrderService{
 		
 		//webOrderRepo.save(order);
 	}
+    @Override
+    public void finishOrder(long id) {
+        WebOrder webOrder = getWebOrderById(id);
+        webOrder.finishWebOrder();
+        webOrderRepo.save(webOrder);
+    }
 }

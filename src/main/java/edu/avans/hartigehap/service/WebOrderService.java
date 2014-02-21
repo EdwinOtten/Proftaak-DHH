@@ -21,6 +21,8 @@ public interface WebOrderService {
     void delete(WebOrder webOrder);
     long createNewWebOrder();
     void setWebCustomer(long sessionId, WebCustomer webCustomer);
+    void finishOrder(long id);
+
 //    WebOrder fetchWarmedUp(long sessionId);
 
 //    List<WebOrder> findAll();

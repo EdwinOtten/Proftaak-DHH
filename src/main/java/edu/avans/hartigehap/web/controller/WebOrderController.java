@@ -7,8 +7,10 @@ import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
 import edu.avans.hartigehap.repository.WebCustomerRepository;
+import edu.avans.hartigehap.repository.WebOrderItemRepository;
 import edu.avans.hartigehap.service.WebCustomerService;
 import edu.avans.hartigehap.service.WebOrderService;
+import edu.avans.hartigehap.service.WebOrderItemService;
 import edu.avans.hartigehap.web.form.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +42,8 @@ import java.util.Locale;
 public class WebOrderController {
     @Autowired
     private WebOrderService webOrderService;
+    @Autowired
+    private WebOrderItemService webOrderItemService;
     @Autowired
     private WebCustomerService webCustomerService;
     @Autowired
@@ -77,16 +82,18 @@ public class WebOrderController {
     }
 
     @RequestMapping(value = "weborders/{weborderid}/customers", params="form", method= RequestMethod.POST)
-    public String createCustomer(@PathVariable("weborderid") long id, @Valid WebCustomer customer, BindingResult bindingResult,
-                                 Model uiModel, HttpServletRequest httpServletRequest,
-                                 RedirectAttributes redirectAttributes, Locale locale) {
+    public String finishOrder(@PathVariable("weborderid") long id, @Valid WebCustomer customer, BindingResult bindingResult,
+                              Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response,
+                              RedirectAttributes redirectAttributes, Locale locale,
+                              @CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue) {
+        //Save Webcustomer:
         if(bindingResult.hasErrors()) {
             uiModel.addAttribute(
                     "message",
                     new Message("error", messageSource.getMessage(
                             "customer_save_fail", new Object[] {}, locale)));
             uiModel.addAttribute("customer", customer);
-            return "hartigehap/editcustomer";
+            return "hartigehap/webshop/editcustomer";
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute(
@@ -100,14 +107,27 @@ public class WebOrderController {
 //                + UrlUtil.encodeUrlPathSegment(storedCustomer.getId().toString(),
 //                httpServletRequest);
 
-        return "hartigehap/webwinkel/winkelmandje";
 
+        webOrderService.finishOrder(id);
+
+        Cookie newCookie = new Cookie("webOrderId", "" + -1);
+        newCookie.setMaxAge(0);
+        response.addCookie(newCookie);
+
+        return "redirect:/weborder/finished";
+    }
+
+    @RequestMapping(value="weborder/finished", method = RequestMethod.GET)
+    public String showWebOrderFinished() {
+        return "hartigehap/showfinishedweborder";
     }
 
 
     @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.GET)
     public String showBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response) {
         long webOrderId = extractIdFromCookieValue(cookieValue);
+
+        uiModel.addAttribute("webOrderId", webOrderId);
 
         if (webOrderId < 0) {
             // Either the cookie has been messed with or does not exist.
@@ -120,12 +140,39 @@ public class WebOrderController {
 //            uiModel.addAttribute("error", "WebOrder is null");
             createNewWebOrder(response);
         } else if (webOrder.getCustomer() != null) {
-            uiModel.addAttribute("result", webOrder.getCustomer().getName());
+            uiModel.addAttribute("customerName", webOrder.getCustomer().getName());
+        } else {
+            uiModel.addAttribute("customerName", "");
         }
-
-//        uiModel.addAttribute("webOrderId", "Cookieid " + webOrderId + " was already set." + "\n " );
+        
+        if (webOrder != null) {
+	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
+	        uiModel.addAttribute("orderItems", webOrderItems);
+        }
+        
 
         return "hartigehap/webwinkel/winkelmandje";
+    }
+    
+    @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.DELETE)
+    public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId) {
+    	
+
+        long webOrderId = extractIdFromCookieValue(cookieValue);
+    	System.out.println("You requested to delete "+orderItemId+" from order "+webOrderId);
+
+        if (webOrderId > 0) {    
+	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+	        if (webOrder != null) {
+	        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
+//		        webOrder.removeWebOrderItem(deleteThis);
+//		        webOrderService.save(webOrder);
+		        webOrderItemService.deleteWebOrderItem(deleteThis);
+		        
+	        } 
+        }
+
+        return "redirect:/webwinkel/winkelmandje";
     }
 
 
