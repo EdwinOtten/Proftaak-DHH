@@ -7,6 +7,7 @@ import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
 import edu.avans.hartigehap.repository.MenuItemRepository;
+import edu.avans.hartigehap.repository.WebOrderItemRepository;
 import edu.avans.hartigehap.repository.WebOrderRepository;
 import edu.avans.hartigehap.service.WebOrderService;
 
