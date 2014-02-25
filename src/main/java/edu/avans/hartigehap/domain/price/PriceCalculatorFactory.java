@@ -17,7 +17,9 @@ public class PriceCalculatorFactory {
      *
      * Prevents avoiding the singleton due to the method being private.
      */
-    private PriceCalculatorFactory() {}
+    private PriceCalculatorFactory() {
+
+    }
 
     /**
      * Implementation of the Singleton design pattern

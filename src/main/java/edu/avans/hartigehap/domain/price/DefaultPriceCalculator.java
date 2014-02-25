@@ -14,7 +14,7 @@ public class DefaultPriceCalculator implements PriceCalculator {
 
     @Override
     public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
-        BigDecimal price = new BigDecimal(0);
+        BigDecimal price = BigDecimal.ZERO;
 
         for (WebOrderItem item : orderList) {
             price.add(item.getPrice());
