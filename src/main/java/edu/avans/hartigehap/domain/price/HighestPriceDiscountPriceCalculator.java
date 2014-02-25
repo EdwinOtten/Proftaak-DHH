@@ -25,7 +25,7 @@ public class HighestPriceDiscountPriceCalculator extends DefaultPriceCalculator 
             }
         }
 
-        price.subtract(highestPrice);
+        highestPrice = price.subtract(highestPrice);
 
         return price;
     }

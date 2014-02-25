@@ -14,10 +14,8 @@ public class PercentageDiscountPriceCalculator extends DefaultPriceCalculator {
 
     @Override
     public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
-
         BigDecimal price = super.calculatePrice(orderList);
-        price.multiply(new BigDecimal("0.80"));
 
-        return price;
+        return price.multiply(new BigDecimal("0.80"));
     }
 }
