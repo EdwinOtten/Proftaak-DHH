@@ -12,10 +12,37 @@ import java.util.List;
  */
 public class PercentageDiscountPriceCalculator extends DefaultPriceCalculator {
 
+    /**
+     * Discount given on products
+     *
+     */
+    private String discount;
+
+
+    /**
+     * Constructor
+     *
+     * @param discount  A percentage which should be multiplied with the base price to
+     *                  get the discount you want.
+     *
+     *                  Passing 0.80 as parameter gives the customer a discount of 20%
+     */
+    public PercentageDiscountPriceCalculator(String discount) {
+        this.discount = discount;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public PercentageDiscountPriceCalculator(){
+        throw new IllegalArgumentException("Expected discount percentage parameter - none given");
+    }
+
     @Override
     public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
         BigDecimal price = super.calculatePrice(orderList);
 
-        return price.multiply(new BigDecimal("0.80"));
+        return price.multiply(new BigDecimal(discount));
     }
 }

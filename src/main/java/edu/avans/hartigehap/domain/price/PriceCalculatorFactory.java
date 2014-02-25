@@ -55,7 +55,7 @@ public class PriceCalculatorFactory {
             case Calendar.FRIDAY:
             case Calendar.SATURDAY:
             case Calendar.SUNDAY:
-                calculator = new PercentageDiscountPriceCalculator();
+                calculator = new PercentageDiscountPriceCalculator("0.80");
                 break;
             default:
                 calculator = new DefaultPriceCalculator();
