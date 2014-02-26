@@ -34,9 +34,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by David-Paul on 11-2-14.
  */
+@Slf4j
 @Controller
 public class WebOrderController {
     @Autowired
@@ -163,7 +166,7 @@ public class WebOrderController {
      *
      * @param cookieValue
      * @todo move to service?
-     * @return long         weborderId
+     * @return long weborderId
      */
     private long extractIdFromCookieValue(String cookieValue)
     {
@@ -172,7 +175,9 @@ public class WebOrderController {
         try {
             id = Long.parseLong(cookieValue);
         } catch (NumberFormatException e) {
-            // Cookie has been modified, do some logging here.
+            id = -1;
+            log.error("WebOrder ID in cookie was not a valid long int, exception thrown: "
+            		+ e.getMessage());
         }
 
         return id;
