@@ -177,7 +177,7 @@ public class WebOrderController {
         } catch (NumberFormatException e) {
             id = -1;
             log.error("WebOrder ID in cookie was not a valid long int, exception thrown: "
-            		+ e);
+            		+ e.getMessage());
         }
 
         return id;
