@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Gijs on 25-2-14.
@@ -69,6 +70,19 @@ public class PriceCalculatorTest {
         BigDecimal price = calculator.calculatePrice(items);
 
         assertEquals("PercentageCalculator", new BigDecimal("8.00"),price);
+    }
+
+    @Test
+    public void testPercentageDiscountCalculatorException() {
+
+        try {
+            PriceCalculator calculator = new PercentageDiscountPriceCalculator();
+        } catch (IllegalArgumentException e){
+            assertTrue("Expected exception has been thrown", true);
+            return;
+        }
+
+        assertTrue("Expected exception has not been thrown", false);
     }
 
 
