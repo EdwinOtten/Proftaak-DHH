@@ -163,7 +163,7 @@ public class WebOrderController {
      *
      * @param cookieValue
      * @todo move to service?
-     * @return long         weborderId
+     * @return long weborderId
      */
     private long extractIdFromCookieValue(String cookieValue)
     {
@@ -172,7 +172,7 @@ public class WebOrderController {
         try {
             id = Long.parseLong(cookieValue);
         } catch (NumberFormatException e) {
-            // Cookie has been modified, do some logging here.
+            id = -1;
         }
 
         return id;
