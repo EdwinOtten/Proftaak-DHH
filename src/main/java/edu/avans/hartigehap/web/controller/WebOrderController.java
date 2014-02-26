@@ -110,15 +110,16 @@ public class WebOrderController {
 
         webOrderService.finishOrder(id);
 
-        Cookie newCookie = new Cookie("webOrderId", "" + -1);
-        newCookie.setMaxAge(0);
-        response.addCookie(newCookie);
-
         return "redirect:/weborder/finished";
     }
 
     @RequestMapping(value="weborder/finished", method = RequestMethod.GET)
-    public String showWebOrderFinished() {
+    public String showWebOrderFinished(HttpServletResponse response) {
+        Cookie newCookie = new Cookie("webOrderId", "" + -1);
+        newCookie.setMaxAge(0);
+        newCookie.setPath("/webwinkel");
+        response.addCookie(newCookie);
+
         return "hartigehap/showfinishedweborder";
     }
 
@@ -181,6 +182,7 @@ public class WebOrderController {
         long cookieid = webOrderService.createNewWebOrder();
         Cookie newCookie = new Cookie("webOrderId", "" + cookieid);
         newCookie.setMaxAge(60 * 60 * 24 *5);
+        newCookie.setPath("/webwinkel");
         response.addCookie(newCookie);
         return cookieid;
     }
