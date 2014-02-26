@@ -70,7 +70,7 @@ public class WebOrderController {
         WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
          
         webOrderService.addToWebOrder(webOrder, itemid);  
-        
+
     	return "redirect:/webwinkel/overzicht";
     }
 

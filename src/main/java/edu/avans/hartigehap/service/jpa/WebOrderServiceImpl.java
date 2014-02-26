@@ -69,20 +69,18 @@ public class WebOrderServiceImpl implements WebOrderService{
     }
 
 	@Override
-	public void addToWebOrder(WebOrder order, String name) {
+	public void addToWebOrder(WebOrder webOrder, String name) {
 		MenuItem menuItem = menuItemRepo.findOne(name);
 		if(name == null)	{ 
 			System.out.print("probleem hij is leeg");
 		}
 		
-		WebOrderItem item = new WebOrderItem();
-		item.setMenuItem(menuItem);
+		WebOrderItem webOrderItem = new WebOrderItem();
+		webOrderItem.setMenuItem(menuItem);
+		webOrderItem.setWebOrder(webOrder);
+        webOrderItemRepo.save(webOrderItem);
 		
-		order.addWebOrderItem(item);
-		
-		
-		
-		//webOrderRepo.save(order);
+		//webOrderRepo.save(webOrder);
 	}
     @Override
     public void finishOrder(long id) {
