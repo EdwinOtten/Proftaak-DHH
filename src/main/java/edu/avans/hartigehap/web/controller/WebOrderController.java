@@ -1,17 +1,12 @@
 package edu.avans.hartigehap.web.controller;
 
-import edu.avans.hartigehap.domain.Ingredient;
-import edu.avans.hartigehap.domain.MenuItem;
-import edu.avans.hartigehap.domain.WebOrderItem;
-import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
-import edu.avans.hartigehap.domain.weborder.WebCustomer;
-import edu.avans.hartigehap.domain.weborder.WebOrder;
-import edu.avans.hartigehap.repository.WebCustomerRepository;
-import edu.avans.hartigehap.repository.WebOrderItemRepository;
-import edu.avans.hartigehap.service.WebCustomerService;
-import edu.avans.hartigehap.service.WebOrderService;
-import edu.avans.hartigehap.service.WebOrderItemService;
-import edu.avans.hartigehap.web.form.Message;
+import java.util.Collection;
+import java.util.Locale;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -24,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import java.text.ParseException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import edu.avans.hartigehap.domain.WebOrderItem;
+import edu.avans.hartigehap.domain.weborder.WebCustomer;
+import edu.avans.hartigehap.domain.weborder.WebOrder;
+import edu.avans.hartigehap.service.WebCustomerService;
+import edu.avans.hartigehap.service.WebOrderItemService;
+import edu.avans.hartigehap.service.WebOrderService;
+import edu.avans.hartigehap.web.form.Message;
 
 /**
  * Created by David-Paul on 11-2-14.
@@ -96,7 +89,11 @@ public class WebOrderController {
         return "hartigehap/showfinishedweborder";
     }
 
-
+    
+	/**
+	 * Shows the users basket with it's contents.
+	 * @param cookieValue The cookie with the webOrderId
+     */
     @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.GET)
     public String showBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response) {
         long webOrderId = extractIdFromCookieValue(cookieValue);
@@ -128,8 +125,14 @@ public class WebOrderController {
         return "hartigehap/webwinkel/winkelmandje";
     }
     
+    
+	/**
+	 * Deletes a WebOrderItem from the basket.
+	 * @param cookieValue The cookie with the webOrderId
+	 * @param orderItemId The ID of the OrderItem to be deleted
+     */
     @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.DELETE)
-    public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId) {
+    public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, long orderItemId) {
     	
 
         long webOrderId = extractIdFromCookieValue(cookieValue);
@@ -139,10 +142,7 @@ public class WebOrderController {
 	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
 	        if (webOrder != null) {
 	        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
-//		        webOrder.removeWebOrderItem(deleteThis);
-//		        webOrderService.save(webOrder);
 		        webOrderItemService.deleteWebOrderItem(deleteThis);
-		        
 	        } 
         }
 

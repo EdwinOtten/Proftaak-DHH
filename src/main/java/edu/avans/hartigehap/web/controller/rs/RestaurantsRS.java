@@ -42,7 +42,7 @@ public class RestaurantsRS {
 	/**
 	 * list all restaurants.
 	 * 
-	 * @return
+	 * @return A List with Restaurant objects
 	 */
 	@RequestMapping(value = RSConstants.URL_PREFIX + "/restaurants", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
