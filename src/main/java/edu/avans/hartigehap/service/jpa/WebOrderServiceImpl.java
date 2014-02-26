@@ -6,8 +6,11 @@ import edu.avans.hartigehap.domain.WebOrderItem;
 import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
+import edu.avans.hartigehap.repository.MenuItemRepository;
+import edu.avans.hartigehap.repository.WebOrderItemRepository;
 import edu.avans.hartigehap.repository.WebOrderRepository;
 import edu.avans.hartigehap.service.WebOrderService;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +30,12 @@ public class WebOrderServiceImpl implements WebOrderService{
 
     @Autowired
     private WebOrderRepository webOrderRepo;
+    
+    @Autowired
+    private MenuItemRepository menuItemRepo;
+    
+    @Autowired
+    private WebOrderItemRepository webOrderItemRepo;
 
     @Transactional(readOnly = true)
     @Override
@@ -59,6 +68,20 @@ public class WebOrderServiceImpl implements WebOrderService{
         webOrderRepo.save(webOrder);
     }
 
+	@Override
+	public void addToWebOrder(WebOrder webOrder, String name) {
+		MenuItem menuItem = menuItemRepo.findOne(name);
+		if(name == null)	{ 
+			System.out.print("probleem hij is leeg");
+		}
+		
+		WebOrderItem webOrderItem = new WebOrderItem();
+		webOrderItem.setMenuItem(menuItem);
+		webOrderItem.setWebOrder(webOrder);
+        webOrderItemRepo.save(webOrderItem);
+		
+		//webOrderRepo.save(webOrder);
+	}
     @Override
     public void finishOrder(long id) {
         WebOrder webOrder = getWebOrderById(id);

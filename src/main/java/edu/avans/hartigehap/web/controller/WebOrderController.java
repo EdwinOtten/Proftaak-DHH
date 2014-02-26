@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
@@ -50,6 +51,31 @@ public class WebOrderController {
     private WebCustomerService webCustomerService;
     @Autowired
     private MessageSource messageSource;
+    
+    /**
+     * @Todo:
+     * 1) MenuItem ophalen a.d.h.v. itemid - Gijs - MenuItemService
+     * 2) WebOrderItem aanmaken o.b.v. menuitem - 
+     * 3) Huidige WebOrder ophalen en voeg WebOrderItem aan WebOrder.
+     * @param itemid
+     * @return
+     */
+    @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
+    public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, @RequestParam("itemId") String itemid
+    		,HttpServletResponse response) {
+    	long webOrderId = extractIdFromCookieValue(cookieValue);
+
+        if (webOrderId < 0) {
+            // Either the cookie has been messed with or does not exist.
+            webOrderId = createNewWebOrder(response);
+        }
+
+        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+         
+        webOrderService.addToWebOrder(webOrder, itemid);  
+
+    	return "redirect:/webwinkel/overzicht";
+    }
 
     @RequestMapping(value = "weborders/{weborderid}/customers", params = "form", method = RequestMethod.GET)
     public String createCustomerForm(@PathVariable("weborderid") long id, Model uiModel) {
@@ -87,15 +113,16 @@ public class WebOrderController {
 
         webOrderService.finishOrder(id);
 
-        Cookie newCookie = new Cookie("webOrderId", "" + -1);
-        newCookie.setMaxAge(0);
-        response.addCookie(newCookie);
-
         return "redirect:/weborder/finished";
     }
 
     @RequestMapping(value="weborder/finished", method = RequestMethod.GET)
-    public String showWebOrderFinished() {
+    public String showWebOrderFinished(HttpServletResponse response) {
+        Cookie newCookie = new Cookie("webOrderId", "" + -1);
+        newCookie.setMaxAge(0);
+        newCookie.setPath("/webwinkel");
+        response.addCookie(newCookie);
+
         return "hartigehap/showfinishedweborder";
     }
 
@@ -108,14 +135,14 @@ public class WebOrderController {
 
         if (webOrderId < 0) {
             // Either the cookie has been messed with or does not exist.
-            createNewWebOrder(webOrderId, uiModel, response);
+            webOrderId = createNewWebOrder(response);
         }
 
         WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
 
         if (webOrder == null) {
 //            uiModel.addAttribute("error", "WebOrder is null");
-            createNewWebOrder(webOrderId, uiModel, response);
+            createNewWebOrder(response);
         } else if (webOrder.getCustomer() != null) {
             uiModel.addAttribute("customerName", webOrder.getCustomer().getName());
         } else {
@@ -154,11 +181,13 @@ public class WebOrderController {
 
 
 
-    private void createNewWebOrder(long cookieid, Model uiModel, HttpServletResponse response) {
-        cookieid = webOrderService.createNewWebOrder();
+    private long createNewWebOrder(HttpServletResponse response) {
+        long cookieid = webOrderService.createNewWebOrder();
         Cookie newCookie = new Cookie("webOrderId", "" + cookieid);
         newCookie.setMaxAge(60 * 60 * 24 *5);
+        newCookie.setPath("/webwinkel");
         response.addCookie(newCookie);
+        return cookieid;
     }
 
     /**

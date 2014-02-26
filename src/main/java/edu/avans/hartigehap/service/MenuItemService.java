@@ -15,6 +15,6 @@ public interface MenuItemService {
 
     List<MenuItem> findByFoodCategoriesId(long pizzaId);
 
-
+    MenuItem findOne(String name);
 
 }
