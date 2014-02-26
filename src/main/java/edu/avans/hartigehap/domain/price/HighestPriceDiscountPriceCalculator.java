@@ -20,12 +20,12 @@ public class HighestPriceDiscountPriceCalculator extends DefaultPriceCalculator 
 
         for (WebOrderItem item : orderList) {
             // if getPrice is bigger than current highest price
-            if (highestPrice.compareTo(item.getPrice()) > 1) {
+            if (highestPrice.compareTo(item.getPrice()) == -1) {
                 highestPrice = item.getPrice();
             }
         }
 
-        highestPrice = price.subtract(highestPrice);
+        price = price.subtract(highestPrice);
 
         return price;
     }
