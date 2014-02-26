@@ -45,7 +45,7 @@ public class WebOrderItem extends DomainObject {
 	public BigDecimal getPrice() {
 		BigDecimal totalPrice = new BigDecimal(menuItem.getPrice());
 		
-		if ( additionalIngredients.size() > 0) {
+		if ( additionalIngredients != null && additionalIngredients.size() > 0) {
 			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
 			while (itr.hasNext()) {
 				totalPrice = totalPrice.add(itr.next().getPrice());
@@ -63,7 +63,8 @@ public class WebOrderItem extends DomainObject {
 	
 	public String getDescription() {
 		String description = "Een " + menuItem.getId();
-		if ( additionalIngredients.size() > 0) {
+		
+		if ( additionalIngredients != null && additionalIngredients.size() > 0) {
 			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
 			description += " met:";
 			while (itr.hasNext()) {
