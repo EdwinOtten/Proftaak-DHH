@@ -61,7 +61,8 @@ public class WebOrderController {
      * @return
      */
     @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
-    public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, @RequestParam("itemId") String itemid
+    public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue,
+                              @RequestParam("itemId") String itemid
     		,HttpServletResponse response) {
     	long webOrderId = extractIdFromCookieValue(cookieValue);
 
@@ -205,8 +206,7 @@ public class WebOrderController {
             id = Long.parseLong(cookieValue);
         } catch (NumberFormatException e) {
             id = -1;
-            log.error("WebOrder ID in cookie was not a valid long int, exception thrown: "
-            		+ e.getMessage());
+            log.error("WebOrder ID in cookie was not a valid long int, exception thrown: ", e);
         }
 
         return id;
