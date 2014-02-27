@@ -11,11 +11,10 @@
     
     <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
-	<h1>Welkom ${customerName}</h1>
-	<h2>Uw bestelling</h2>
-    <h4>bestelnummer ${webOrderId}</h4>
+	<h1>Uw bestelling</h1>
+    <!--h4>bestelnummer ${webOrderId}</h4>
     <h4>Insert een voorbeeld product:</h4>
-    <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre>
+    <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre-->
     
     <table>
         <thead>
@@ -47,8 +46,8 @@
 
     <p style="float:left"> <a href="/webwinkel/overzicht"> Terug naar overzicht... </a> </p>
 
-    <form method="post" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
-         <input type="Submit" value="Bestellen" />
-     </form>
-   
+    <!--form method="get" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
+        <input type="Submit" value="Bestellen" />
+     </form-->
+    <a href="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;"> Bestellen </a>
 </div>

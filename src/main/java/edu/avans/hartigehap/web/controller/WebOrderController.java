@@ -143,18 +143,18 @@ public class WebOrderController {
 
         if (webOrder == null) {
 //            uiModel.addAttribute("error", "WebOrder is null");
-            createNewWebOrder(response);
+            webOrderId = createNewWebOrder(response);
+            webOrder = webOrderService.getWebOrderById(webOrderId);
         } else if (webOrder.getCustomer() != null) {
             uiModel.addAttribute("customerName", webOrder.getCustomer().getName());
         } else {
             uiModel.addAttribute("customerName", "");
         }
-        
+
         if (webOrder != null) {
 	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
 	        uiModel.addAttribute("orderItems", webOrderItems);
         }
-        
 
         return "hartigehap/webwinkel/winkelmandje";
     }
