@@ -62,8 +62,10 @@ public class WebOrderController {
      */
     @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
     public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue,
-                              @RequestParam("itemId") String itemid
-    		,HttpServletResponse response) {
+                              @RequestParam("itemId") String itemid,
+                              HttpServletResponse response,
+                              RedirectAttributes redirectAttributes,
+                              Locale locale) {
     	long webOrderId = extractIdFromCookieValue(cookieValue);
 
         if (webOrderId < 0) {
@@ -73,7 +75,12 @@ public class WebOrderController {
 
         WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
          
-        webOrderService.addToWebOrder(webOrder, itemid);  
+        webOrderService.addToWebOrder(webOrder, itemid);
+
+        redirectAttributes.addFlashAttribute("message", messageSource.getMessage(
+                                                        "message_basket_success", new Object[] {}, locale
+                                                   )
+                                        );
 
     	return "redirect:/webwinkel/overzicht";
     }
