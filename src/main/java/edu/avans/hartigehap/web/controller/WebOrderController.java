@@ -60,7 +60,7 @@ public class WebOrderController {
      * @param itemid
      * @return
      */
-    @RequestMapping(value = {"/webwinkel/overzicht"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/weborder/item"}, method = RequestMethod.POST)
     public String addToBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue,
                               @RequestParam("itemId") String itemid,
                               HttpServletResponse response,
@@ -82,21 +82,24 @@ public class WebOrderController {
                                                    )
                                         );
 
-    	return "redirect:/webwinkel";
+    	return "redirect:/webmenu";
     }
 
-    @RequestMapping(value = "weborders/{weborderid}/customers", params = "form", method = RequestMethod.GET)
-    public String createCustomerForm(@PathVariable("weborderid") long id, Model uiModel) {
+    @RequestMapping(value = "/weborder/customer", method = RequestMethod.GET)
+    public String createCustomerForm(Model uiModel) {
         WebCustomer customer = new WebCustomer();
         uiModel.addAttribute("customer", customer);
         return "hartigehap/webshop/editcustomer";
     }
 
-    @RequestMapping(value = "weborders/{weborderid}/customers", params="form", method= RequestMethod.POST)
-    public String finishOrder(@PathVariable("weborderid") long id, @Valid WebCustomer customer, BindingResult bindingResult,
+    @RequestMapping(value = "/weborder/customer", method= RequestMethod.POST)
+    public String finishOrder(@Valid WebCustomer customer, BindingResult bindingResult,
                               Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response,
                               RedirectAttributes redirectAttributes, Locale locale,
                               @CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue) {
+
+        long id = extractIdFromCookieValue(cookieValue);
+
         //Save Webcustomer:
         if(bindingResult.hasErrors()) {
             uiModel.addAttribute(
@@ -124,18 +127,18 @@ public class WebOrderController {
         return "redirect:/weborder/finished";
     }
 
-    @RequestMapping(value="weborder/finished", method = RequestMethod.GET)
+    @RequestMapping(value="/weborder/finished", method = RequestMethod.GET)
     public String showWebOrderFinished(HttpServletResponse response) {
         Cookie newCookie = new Cookie("webOrderId", "" + -1);
         newCookie.setMaxAge(0);
-        newCookie.setPath("/webwinkel");
+        newCookie.setPath("/");
         response.addCookie(newCookie);
 
         return "hartigehap/showfinishedweborder";
     }
 
 
-    @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.GET)
+    @RequestMapping(value = "/weborder", method = RequestMethod.GET)
     public String showBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response) {
         long webOrderId = extractIdFromCookieValue(cookieValue);
 
@@ -166,7 +169,7 @@ public class WebOrderController {
         return "hartigehap/webwinkel/winkelmandje";
     }
     
-    @RequestMapping(value = "webwinkel/winkelmandje", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/weborder/item", method = RequestMethod.DELETE)
     public String deleteFromBasket(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId) {
     	
 
@@ -184,7 +187,7 @@ public class WebOrderController {
 	        } 
         }
 
-        return "redirect:/webwinkel/winkelmandje";
+        return "redirect:/weborder";
     }
 
 
@@ -193,7 +196,7 @@ public class WebOrderController {
         long cookieid = webOrderService.createNewWebOrder();
         Cookie newCookie = new Cookie("webOrderId", "" + cookieid);
         newCookie.setMaxAge(60 * 60 * 24 *5);
-        newCookie.setPath("/webwinkel");
+        newCookie.setPath("/");
         response.addCookie(newCookie);
         return cookieid;
     }

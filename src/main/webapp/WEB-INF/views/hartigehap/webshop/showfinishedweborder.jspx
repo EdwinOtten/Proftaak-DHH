@@ -9,7 +9,7 @@
     <html>
     <head><title>Uw bestelling is geplaatst</title></head>
     <body>
-        Bedankt voor uw bestelling.
+        <div id="message" class="success">Bedankt voor uw bestelling.</div>
     </body>
     </html>
 </jsp:root>

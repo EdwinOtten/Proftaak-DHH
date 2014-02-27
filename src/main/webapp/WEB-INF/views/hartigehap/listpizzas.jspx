@@ -37,7 +37,7 @@
                 <td><img src="../../images/${pizza.imageFileName}" alt="${pizza.id}" width="100px" /></td>
                 <td>€ ${pizza.price}</td>
                 <td>
-                    <form method="post" action="/webwinkel/overzicht">
+                    <form method="post" action="/weborder/item">
                         <input type="hidden" name="itemId" value="${pizza.id}" />
                         <input type="Submit" value="${labelAddToBasket}" />
                     </form>
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <p style="float:right"> <a href="/webwinkel/winkelmandje" >Naar winkelwagen... </a> </p>
+    <p style="float:right"> <a href="/weborder" >Naar winkelwagen... </a> </p>
 </div>

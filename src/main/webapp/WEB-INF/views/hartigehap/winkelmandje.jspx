@@ -33,7 +33,7 @@
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>
-                    <form method="post" action="">
+                    <form method="post" action="/weborder/item">
                         <input type="hidden" name="_method" value="DELETE" />
                         <input type="hidden" name="orderItemId" value="${orderItem.id}" />
                         <input type="Submit" value="verwijder" />
@@ -44,10 +44,10 @@
         </tbody>
     </table>
 
-    <p style="float:left"> <a href="/webwinkel"> Terug naar overzicht... </a> </p>
+    <p style="float:left"> <a href="/webmenu"> Terug naar overzicht... </a> </p>
 
     <!--form method="get" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
         <input type="Submit" value="Bestellen" />
      </form-->
-    <a href="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;"> Bestellen </a>
+    <a href="${baseURL}/weborder/customer" style="float: right;"> Bestellen </a>
 </div>
