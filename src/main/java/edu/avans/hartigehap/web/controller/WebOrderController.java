@@ -82,7 +82,7 @@ public class WebOrderController {
                                                    )
                                         );
 
-    	return "redirect:/webwinkel/overzicht";
+    	return "redirect:/webwinkel";
     }
 
     @RequestMapping(value = "weborders/{weborderid}/customers", params = "form", method = RequestMethod.GET)
