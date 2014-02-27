@@ -44,7 +44,7 @@
         </tbody>
     </table>
 
-    <p style="float:left"> <a href="/webmenu"> Terug naar overzicht... </a> </p>
+    <p style="float:left"> <a href="/hh/webmenu"> Terug naar overzicht... </a> </p>
 
     <!--form method="get" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
         <input type="Submit" value="Bestellen" />
