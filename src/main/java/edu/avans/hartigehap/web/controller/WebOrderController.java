@@ -66,13 +66,18 @@ public class WebOrderController {
     		,HttpServletResponse response) {
     	long webOrderId = extractIdFromCookieValue(cookieValue);
 
+        WebOrder webOrder = null;
         if (webOrderId < 0) {
             // Either the cookie has been messed with or does not exist.
             webOrderId = createNewWebOrder(response);
+        } else {
+            webOrder = webOrderService.getWebOrderById(webOrderId);
+            if (webOrder == null) {
+                webOrderId = createNewWebOrder(response);
+                webOrder = webOrderService.getWebOrderById(webOrderId);
+            }
         }
 
-        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
-         
         webOrderService.addToWebOrder(webOrder, itemid);  
 
     	return "redirect:/webwinkel/overzicht";
