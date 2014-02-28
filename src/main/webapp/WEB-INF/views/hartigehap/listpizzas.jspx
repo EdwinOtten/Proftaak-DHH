@@ -14,6 +14,9 @@
     <spring:message code="label_actions" var="labelActions" />
     <spring:message code="label_add_to_basket" var="labelAddToBasket" />
 
+    <spring:url var="submitAddToBasketUrl" value="/weborder/item" />
+    <spring:url var="toBasket" value="/weborder" />
+
     <h1>${labelPizzaOverview}</h1>
 
     <c:if test="${not empty message}">
@@ -37,7 +40,7 @@
                 <td><img src="../../images/${pizza.imageFileName}" alt="${pizza.id}" width="100px" /></td>
                 <td>€ ${pizza.price}</td>
                 <td>
-                    <form method="post" action="/weborder/item">
+                    <form method="post" action="${submitAddToBasketUrl}">
                         <input type="hidden" name="itemId" value="${pizza.id}" />
                         <input type="Submit" value="${labelAddToBasket}" />
                     </form>
@@ -47,5 +50,5 @@
         </tbody>
     </table>
 
-    <p style="float:right"> <a href="/weborder" >Naar winkelwagen... </a> </p>
+    <p style="float:right"> <a href="${toBasket}" >Naar winkelwagen...</a> </p>
 </div>

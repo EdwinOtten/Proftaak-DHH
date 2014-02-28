@@ -11,11 +11,15 @@
     
     <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
+    <spring:url var="deleteFromBasketUrl" value="/weborder/item" />
+    <spring:url var="toWebMenuUrl" value="/webmenu" />
+    <spring:url var="toCustomerFormUrl" value="/weborder/customer" />
+
 	<h1>Uw bestelling</h1>
     <!--h4>bestelnummer ${webOrderId}</h4>
     <h4>Insert een voorbeeld product:</h4>
     <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre-->
-    
+
     <table>
         <thead>
        	<tr>
@@ -33,7 +37,7 @@
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>
-                    <form method="post" action="/weborder/item">
+                    <form method="post" action="${deleteFromBasketUrl}">
                         <input type="hidden" name="_method" value="DELETE" />
                         <input type="hidden" name="orderItemId" value="${orderItem.id}" />
                         <input type="Submit" value="verwijder" />
@@ -44,10 +48,7 @@
         </tbody>
     </table>
 
-    <p style="float:left"> <a href="/webmenu"> Terug naar overzicht... </a> </p>
+    <p style="float:left"> <a href="${toWebMenuUrl}"> Terug naar overzicht... </a> </p>
 
-    <!--form method="get" action="${baseURL}/weborders/${webOrderId}/customers?form" style="float: right;">
-        <input type="Submit" value="Bestellen" />
-     </form-->
-    <a href="${baseURL}/weborder/customer" style="float: right;"> Bestellen </a>
+    <a href="${toCustomerFormUrl}" style="float: right;"> Bestellen </a>
 </div>
