@@ -31,9 +31,9 @@
         </thead>
         <tbody>
         <c:forEach items="${orderItems}" var="orderItem">
-
+            <spring:url var="imageUrl" value="/images/${orderItem.getMenuItem().imageFileName}" />
             <tr>
-            	<td><img src="../images/${orderItem.getMenuItem().imageFileName}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
+            	<td><img src="${imageUrl}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
                 <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>

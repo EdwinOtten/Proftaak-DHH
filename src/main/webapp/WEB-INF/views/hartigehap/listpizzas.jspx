@@ -34,10 +34,10 @@
         </thead>
         <tbody>
         <c:forEach items="${pizzaList}" var="pizza">
-
+            <spring:url var="imageUrl" value="/resources/images/${pizza.imageFileName}" />
             <tr>
                 <td>${pizza.id}</td>
-                <td><img src="../../images/${pizza.imageFileName}" alt="${pizza.id}" width="100px" /></td>
+                <td><img src="${imageUrl}" alt="${pizza.id}" width="100px" /></td>
                 <td>€ ${pizza.price}</td>
                 <td>
                     <form method="post" action="${submitAddToBasketUrl}">
