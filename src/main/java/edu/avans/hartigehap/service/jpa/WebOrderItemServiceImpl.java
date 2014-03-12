@@ -42,7 +42,6 @@ public class WebOrderItemServiceImpl implements WebOrderItemService {
 
 	@Override
 	public void addAditionalIngredient(WebOrderItem webOrderItem, AdditionalIngredient additionalIngredient) {
-		System.out.println("OOO! add ingredient "+additionalIngredient.getName()+" to "+webOrderItem.getName());
 		webOrderItem.addIngredient(additionalIngredient);
 		save(webOrderItem);
 	}

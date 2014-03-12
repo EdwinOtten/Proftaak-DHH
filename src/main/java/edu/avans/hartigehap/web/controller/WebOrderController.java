@@ -192,7 +192,6 @@ public class WebOrderController {
     public String addAdditionalIngredient(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId, long additionalIngredientId) {
 
         long webOrderId = extractIdFromCookieValue(cookieValue);
-    	System.out.println("You requested to delete "+orderItemId+" from order "+webOrderId);
     	
         if (webOrderId > 0) {    
 	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);

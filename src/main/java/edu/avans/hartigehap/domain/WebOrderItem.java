@@ -66,12 +66,12 @@ public class WebOrderItem extends DomainObject {
 		
 		if ( additionalIngredients != null && additionalIngredients.size() > 0) {
 			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
-			description += " met:";
+			description += " met:<ul>";
 			while (itr.hasNext()) {
-				description += " " + itr.next().getName() + ",";
+				description += "<li>" + itr.next().getName() + "</li>";
 			}
 			// remove last comma
-			description = description.substring(0, description.length() - 1);
+			description += "</ul>";
 		}
 		return description;
 	}

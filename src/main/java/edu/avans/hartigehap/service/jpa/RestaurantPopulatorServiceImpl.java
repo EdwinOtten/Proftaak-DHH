@@ -1,19 +1,23 @@
 package edu.avans.hartigehap.service.jpa;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
 import edu.avans.hartigehap.domain.weborder.WebCustomer;
 import edu.avans.hartigehap.domain.weborder.WebOrder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import edu.avans.hartigehap.domain.*;
 import edu.avans.hartigehap.repository.*;
 import edu.avans.hartigehap.service.*;
+
 import org.joda.time.DateTime;
 
 @Service("restaurantPopulatorService")
@@ -34,11 +38,14 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
     private WebOrderRepository webOrderRepository;
     @Autowired
     private WebCustomerRepository webCustomerRepository;
+    @Autowired
+    private AdditionalIngredientRepository additionalIngredientRepository;
 	
 	private List<Meal> meals = new ArrayList<Meal>();
 	private List<FoodCategory> foodCats = new ArrayList<FoodCategory>();
 	private List<Drink> drinks = new ArrayList<Drink>();
 	private List<Customer> customers = new ArrayList<Customer>();
+	private List<AdditionalIngredient> additionalIngredients = new ArrayList<AdditionalIngredient>();
 
 		
 	/**
@@ -85,6 +92,11 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 		createCustomer("piet", "bakker", new DateTime(), 1, "description", photo);
 		createCustomer("piet", "bakker", new DateTime(), 1, "description", photo);
 		createCustomer("piet", "bakker", new DateTime(), 1, "description", photo);
+		
+		createAdditionalIngredient("Knoflooksaus", new BigDecimal(0.50));
+		createAdditionalIngredient("Sambal", new BigDecimal(0.50));
+		createAdditionalIngredient("Extra kaas (45+)", new BigDecimal(0.80));
+		createAdditionalIngredient("Bacon", new BigDecimal(1.20));
 
 	}
 
@@ -124,6 +136,13 @@ public class RestaurantPopulatorServiceImpl implements RestaurantPopulatorServic
 			diningTable.setRestaurant(restaurant);
 			restaurant.getDiningTables().add(diningTable);
 		}
+	}
+	
+	private void createAdditionalIngredient(String name, BigDecimal price) {
+		AdditionalIngredient additionalIngredient = new AdditionalIngredient();
+		additionalIngredient.setName(name);
+		additionalIngredient.setPrice(price);
+		additionalIngredientRepository.save(additionalIngredient);
 	}
 	
 	private void populateRestaurant(Restaurant restaurant) {
