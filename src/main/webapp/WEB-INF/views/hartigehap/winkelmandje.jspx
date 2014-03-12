@@ -48,6 +48,8 @@
         </tbody>
     </table>
 
+    <p>Prijs Totaal: € ${totalPrice}</p>
+
     <p style="float:left"> <a href="${toWebMenuUrl}"> Terug naar overzicht... </a> </p>
 
     <a href="${toCustomerFormUrl}" style="float: right;"> Bestellen </a>

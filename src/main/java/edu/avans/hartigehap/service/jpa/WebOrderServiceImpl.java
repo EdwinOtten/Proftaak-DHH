@@ -40,7 +40,15 @@ public class WebOrderServiceImpl implements WebOrderService{
     @Transactional(readOnly = true)
     @Override
     public WebOrder getWebOrderById(long sessionId) {
-        return webOrderRepo.findOne(sessionId);
+
+        WebOrder order = webOrderRepo.findOne(sessionId);
+
+        if (order != null) {
+            //TODO This should be persistent; should not change on page load
+            order.setPriceCalculator(PriceCalculatorFactory.getInstance().create());
+        }
+
+        return order;
     }
 
     @Override

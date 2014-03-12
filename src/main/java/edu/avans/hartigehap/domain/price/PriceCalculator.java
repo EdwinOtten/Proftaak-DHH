@@ -3,6 +3,7 @@ package edu.avans.hartigehap.domain.price;
 import edu.avans.hartigehap.domain.WebOrderItem;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ public interface PriceCalculator {
      * @param orderList     The ordered items.
      * @return BigDecimal       The price
      */
-    BigDecimal calculatePrice(List<WebOrderItem> orderList);
+    BigDecimal calculatePrice(Collection<WebOrderItem> orderList);
 }

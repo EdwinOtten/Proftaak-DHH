@@ -10,8 +10,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by David-Paul on 10-2-14.
@@ -38,6 +40,10 @@ public class WebOrder extends DomainObject {
     @OneToMany(mappedBy = "webOrder")
     private Collection<WebOrderItem> webOrderItems;
 
+    public WebOrder() {
+        webOrderItems = new ArrayList<>();
+    }
+
     public enum WebOrderState {
         NEW, PAID
     }
@@ -48,6 +54,10 @@ public class WebOrder extends DomainObject {
 
     public void addWebOrderItem(WebOrderItem webOrderItem) {
         webOrderItems.add(webOrderItem);
+    }
+
+    public BigDecimal getPrice() {
+        return priceCalculator.calculatePrice(webOrderItems);
     }
 
 }
