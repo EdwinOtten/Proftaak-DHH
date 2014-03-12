@@ -12,6 +12,7 @@
     <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
     <spring:url var="deleteFromBasketUrl" value="/weborder/item" />
+    <spring:url var="addAdditionalIngredientUrl" value="/weborder/item" />
     <spring:url var="toWebMenuUrl" value="/webmenu" />
     <spring:url var="toCustomerFormUrl" value="/weborder/customer" />
 
@@ -34,7 +35,22 @@
             <spring:url var="imageUrl" value="/images/${orderItem.getMenuItem().imageFileName}" />
             <tr>
             	<td><img src="${imageUrl}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
-                <td><strong>${orderItem.getName()}</strong><br />${orderItem.getDescription()}</td>
+                <td>
+                	<strong>${orderItem.getName()}</strong><br />
+                	${orderItem.getDescription()}<br />
+                    <form method="post" action="${addAdditionalIngredientUrl}">
+                        <input type="hidden" name="_method" value="PUT" />
+                        <input type="hidden" name="orderItemId" value="${orderItem.id}" />
+                        <select name="additionalIngredientId">
+                        
+                        	<c:forEach items="${additionalIngredients}" var="additionalIngredient">
+                        		<option value="${additionalIngredient.id}">${additionalIngredient.name} € ${additionalIngredient.price}</option>
+        					</c:forEach>
+                      
+                        </select>
+                        <input type="Submit" value="+" style="width: auto; margin-left: 8px;"/>
+                    </form>
+                </td>
                 <td>€ ${orderItem.getPriceString()}</td>
                 <td>
                     <form method="post" action="${deleteFromBasketUrl}">

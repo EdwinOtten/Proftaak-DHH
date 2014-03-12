@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.avans.hartigehap.domain.AdditionalIngredient;
 import edu.avans.hartigehap.domain.MenuItem;
 import edu.avans.hartigehap.domain.WebOrderItem;
 import edu.avans.hartigehap.repository.WebOrderItemRepository;
@@ -36,6 +37,12 @@ public class WebOrderItemServiceImpl implements WebOrderItemService {
 	@Override
 	public void setMenuItem(WebOrderItem webOrderItem, MenuItem menuItem) {
 		webOrderItem.setMenuItem(menuItem);
+		save(webOrderItem);
+	}
+
+	@Override
+	public void addAditionalIngredient(WebOrderItem webOrderItem, AdditionalIngredient additionalIngredient) {
+		webOrderItem.addIngredient(additionalIngredient);
 		save(webOrderItem);
 	}
 	
