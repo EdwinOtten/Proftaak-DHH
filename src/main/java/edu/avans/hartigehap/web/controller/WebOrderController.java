@@ -1,17 +1,14 @@
 package edu.avans.hartigehap.web.controller;
 
-import edu.avans.hartigehap.domain.Ingredient;
-import edu.avans.hartigehap.domain.MenuItem;
-import edu.avans.hartigehap.domain.WebOrderItem;
-import edu.avans.hartigehap.domain.price.PriceCalculatorFactory;
-import edu.avans.hartigehap.domain.weborder.WebCustomer;
-import edu.avans.hartigehap.domain.weborder.WebOrder;
-import edu.avans.hartigehap.repository.WebCustomerRepository;
-import edu.avans.hartigehap.repository.WebOrderItemRepository;
-import edu.avans.hartigehap.service.WebCustomerService;
-import edu.avans.hartigehap.service.WebOrderService;
-import edu.avans.hartigehap.service.WebOrderItemService;
-import edu.avans.hartigehap.web.form.Message;
+import java.util.Collection;
+import java.util.Locale;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,23 +16,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import java.text.ParseException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-
-import lombok.extern.slf4j.Slf4j;
+import edu.avans.hartigehap.domain.AdditionalIngredient;
+import edu.avans.hartigehap.domain.WebOrderItem;
+import edu.avans.hartigehap.domain.weborder.WebCustomer;
+import edu.avans.hartigehap.domain.weborder.WebOrder;
+import edu.avans.hartigehap.repository.AdditionalIngredientRepository;
+import edu.avans.hartigehap.service.AdditionalIngredientService;
+import edu.avans.hartigehap.service.WebCustomerService;
+import edu.avans.hartigehap.service.WebOrderItemService;
+import edu.avans.hartigehap.service.WebOrderService;
+import edu.avans.hartigehap.web.form.Message;
 
 /**
  * Created by David-Paul on 11-2-14.
@@ -47,6 +42,8 @@ public class WebOrderController {
     private WebOrderService webOrderService;
     @Autowired
     private WebOrderItemService webOrderItemService;
+    @Autowired
+    private AdditionalIngredientService additionalIngredientService;
     @Autowired
     private WebCustomerService webCustomerService;
     @Autowired
@@ -165,6 +162,10 @@ public class WebOrderController {
 	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
 	        uiModel.addAttribute("orderItems", webOrderItems);
         }
+        
+	    Collection<AdditionalIngredient> additionalIngredients = (Collection<AdditionalIngredient>) additionalIngredientService.getAllAdditionalIngredients();
+	    uiModel.addAttribute("additionalIngredients", additionalIngredients);
+        
 
         return "hartigehap/webwinkel/winkelmandje";
     }
@@ -178,12 +179,27 @@ public class WebOrderController {
 
         if (webOrderId > 0) {    
 	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
-	        if (webOrder != null) {
-	        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
-//		        webOrder.removeWebOrderItem(deleteThis);
-//		        webOrderService.save(webOrder);
+        	WebOrderItem deleteThis = webOrderItemService.getWebOrderItemById(orderItemId);
+	        if (webOrder != null && deleteThis != null) {
 		        webOrderItemService.deleteWebOrderItem(deleteThis);
-		        
+	        } 
+        }
+
+        return "redirect:/weborder";
+    }
+    
+    @RequestMapping(value = "/weborder/item", method = RequestMethod.PUT)
+    public String addAdditionalIngredient(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId, long additionalIngredientId) {
+
+        long webOrderId = extractIdFromCookieValue(cookieValue);
+    	System.out.println("You requested to delete "+orderItemId+" from order "+webOrderId);
+    	
+        if (webOrderId > 0) {    
+	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+        	WebOrderItem webOrderItem = webOrderItemService.getWebOrderItemById(orderItemId);
+	        AdditionalIngredient additionalIngredient = additionalIngredientService.getAdditionalIngredientById(additionalIngredientId);
+	        if (webOrder != null && additionalIngredient != null && webOrderItem != null) {
+		        webOrderItemService.addAditionalIngredient(webOrderItem, additionalIngredient);
 	        } 
         }
 
