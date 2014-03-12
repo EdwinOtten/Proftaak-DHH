@@ -32,6 +32,14 @@ import edu.avans.hartigehap.service.WebOrderItemService;
 import edu.avans.hartigehap.service.WebOrderService;
 import edu.avans.hartigehap.web.form.Message;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by David-Paul on 11-2-14.
  */
@@ -161,6 +169,10 @@ public class WebOrderController {
         if (webOrder != null) {
 	        Collection<WebOrderItem> webOrderItems = webOrder.getWebOrderItems();
 	        uiModel.addAttribute("orderItems", webOrderItems);
+
+            DecimalFormat df = new DecimalFormat("#.##");
+
+            uiModel.addAttribute("totalPrice", df.format(webOrder.getPrice().doubleValue()));
         }
         
 	    Collection<AdditionalIngredient> additionalIngredients = (Collection<AdditionalIngredient>) additionalIngredientService.getAllAdditionalIngredients();

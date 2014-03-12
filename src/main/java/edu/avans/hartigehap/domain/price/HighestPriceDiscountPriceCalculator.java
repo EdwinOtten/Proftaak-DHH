@@ -4,6 +4,7 @@ import edu.avans.hartigehap.domain.WebOrderItem;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public class HighestPriceDiscountPriceCalculator extends DefaultPriceCalculator {
 
     @Override
-    public BigDecimal calculatePrice(List<WebOrderItem> orderList) {
+    public BigDecimal calculatePrice(Collection<WebOrderItem> orderList) {
         BigDecimal price = super.calculatePrice(orderList);
         BigDecimal highestPrice = BigDecimal.ZERO;
 
@@ -25,7 +26,10 @@ public class HighestPriceDiscountPriceCalculator extends DefaultPriceCalculator 
             }
         }
 
-        price = price.subtract(highestPrice);
+        // No discount if only one item has been added to the basket!
+        if (orderList.size() > 1) {
+            price = price.subtract(highestPrice);
+        }
 
         return price;
     }

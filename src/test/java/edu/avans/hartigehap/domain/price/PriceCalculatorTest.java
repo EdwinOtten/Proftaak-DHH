@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class PriceCalculatorTest {
 
-    private List<WebOrderItem> items;
+    private Collection<WebOrderItem> items;
 
 
     private void setUp() {
