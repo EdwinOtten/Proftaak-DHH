@@ -38,6 +38,7 @@ public class WebOrderItem extends DomainObject {
 	private MenuItem menuItem;
 	
     @ManyToMany
+	@Getter
 	private Collection<AdditionalIngredient> additionalIngredients;
 	
 	private static final long serialVersionUID = 1L;
@@ -63,16 +64,6 @@ public class WebOrderItem extends DomainObject {
 	
 	public String getDescription() {
 		String description = "Een " + menuItem.getId();
-		
-		if ( additionalIngredients != null && additionalIngredients.size() > 0) {
-			Iterator<AdditionalIngredient> itr = additionalIngredients.iterator();
-			description += " met:<ul>";
-			while (itr.hasNext()) {
-				description += "<li>" + itr.next().getName() + "</li>";
-			}
-			// remove last comma
-			description += "</ul>";
-		}
 		return description;
 	}
 	

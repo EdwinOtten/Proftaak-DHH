@@ -12,6 +12,7 @@
     <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
     <spring:url var="deleteFromBasketUrl" value="/weborder/item" />
+    <spring:url var="removeIngredientUrl" value="/weborder/item/ingredient" />
     <spring:url var="addAdditionalIngredientUrl" value="/weborder/item" />
     <spring:url var="toWebMenuUrl" value="/webmenu" />
     <spring:url var="toCustomerFormUrl" value="/weborder/customer" />
@@ -37,7 +38,23 @@
             	<td><img src="${imageUrl}" alt="${orderItem.getMenuItem().id}" width="100px" /></td>
                 <td>
                 	<strong>${orderItem.getName()}</strong><br />
-                	${orderItem.getDescription()}<br />
+                	${orderItem.getDescription()}
+                	<c:if test="${orderItem.getAdditionalIngredients().size() >= 1}">
+                	 met: <br />
+                	 <ul style="list-style: none;">
+	                   	<c:forEach items="${orderItem.getAdditionalIngredients()}" var="addedIngredients">
+	                   		<li>
+	                   			<form method="post" action="${removeIngredientUrl}" style="display: inline;">
+			                        <input type="hidden" name="_method" value="DELETE" />
+			                        <input type="hidden" name="orderItemId" value="${orderItem.id}" />
+			                        <input type="hidden" name="additionalIngredientId" value="${addedIngredients.getId()}" />
+			                        <input type="Submit" value="-" style="display: inline; width: auto; color: transparent; background: url('images/delete.png') no-repeat; border: none; background-position: center;" />
+			                    </form>
+			                    ${addedIngredients.getName()}
+	                   		</li>
+	   					</c:forEach><br />
+                	 </ul>
+                	</c:if>
                     <form method="post" action="${addAdditionalIngredientUrl}">
                         <input type="hidden" name="_method" value="PUT" />
                         <input type="hidden" name="orderItemId" value="${orderItem.id}" />
@@ -48,7 +65,7 @@
         					</c:forEach>
                       
                         </select>
-                        <input type="Submit" value="+" style="width: auto; margin-left: 8px;"/>
+                        <input type="Submit" value="+" style="margin-left: 8px; display: inline; width: auto; color: transparent; background: url('images/add.png') no-repeat; border: none; background-position: center;"/>
                     </form>
                 </td>
                 <td>€ ${orderItem.getPriceString()}</td>
@@ -56,7 +73,7 @@
                     <form method="post" action="${deleteFromBasketUrl}">
                         <input type="hidden" name="_method" value="DELETE" />
                         <input type="hidden" name="orderItemId" value="${orderItem.id}" />
-                        <input type="Submit" value="verwijder" />
+                        <input type="Submit" value="-" style="display: inline; width: auto; color: transparent; background: url('images/delete.png') no-repeat; border: none; background-position: center;" />
                     </form>
                 </td>
             </tr>

@@ -216,6 +216,24 @@ public class WebOrderController {
 
         return "redirect:/weborder";
     }
+    
+    @RequestMapping(value = "/weborder/item/ingredient", method = RequestMethod.DELETE)
+    public String removeAdditionalIngredient(@CookieValue(value = "webOrderId", defaultValue = "-1") String cookieValue, Model uiModel, HttpServletResponse response, long orderItemId, long additionalIngredientId) {
+
+        long webOrderId = extractIdFromCookieValue(cookieValue);
+    	
+        if (webOrderId > 0) {    
+	        WebOrder webOrder = webOrderService.getWebOrderById(webOrderId);
+        	WebOrderItem webOrderItem = webOrderItemService.getWebOrderItemById(orderItemId);
+	        AdditionalIngredient additionalIngredient = additionalIngredientService.getAdditionalIngredientById(additionalIngredientId);
+	        if (webOrder != null && additionalIngredient != null && webOrderItem != null) {
+		        webOrderItemService.removeAditionalIngredient(webOrderItem, additionalIngredient);
+	        } 
+        }
+
+        return "redirect:/weborder";
+    }
+
 
 
 
