@@ -5,11 +5,19 @@
   Time: 14:05
   To change this template use File | Settings | File Templates.
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:joda="http://www.joda.org/joda/time/tags"
+        xmlns:spring="http://www.springframework.org/tags" version="2.0"
+        xmlns:sec="http://www.springframework.org/security/tags">
+
+    <spring:message code="title_order_submitted" var="labelOrderSubmitted" />
+    <spring:message code="label_thanks_message" var="labelThanksMessage" />
+
     <html>
-    <head><title>Uw bestelling is geplaatst</title></head>
+    <head><title>${labelOrderSubmitted}</title></head>
     <body>
-        <div id="message" class="success">Bedankt voor uw bestelling.</div>
+        <div id="message" class="success">${labelThanksMessage}</div>
     </body>
     </html>
 </jsp:root>
