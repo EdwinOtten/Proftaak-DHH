@@ -25,7 +25,7 @@ public class RestaurantController {
 	private RestaurantPopulatorService restaurantPopulatorService;
 
 	// mapping to "/" is not RESTful, but is for bootstrapping!
-	@RequestMapping(value = {"/", "/restaurants"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/restaurants"}, method = RequestMethod.GET)
 	public String listRestaurants(Model uiModel) {
 		
 		Collection<Restaurant> restaurants = restaurantService.findAll();

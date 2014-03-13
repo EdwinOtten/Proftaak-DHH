@@ -27,8 +27,7 @@ public class MenuItemController {
     @Autowired
     private MenuItemService menuItemService;
 
-    // mapping to "/" is not RESTful, but is for bootstrapping!
-    @RequestMapping(value = {"/webmenu"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/webmenu"}, method = RequestMethod.GET)
     public String listPizzaOverview(Model uiModel) {
 
        List<MenuItem> pizzaList = menuItemService.findByFoodCategoriesId(8L);
