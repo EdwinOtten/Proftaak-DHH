@@ -13,6 +13,7 @@
     <spring:message code="label_price" var="labelPrice" />
     <spring:message code="label_actions" var="labelActions" />
     <spring:message code="label_add_to_basket" var="labelAddToBasket" />
+    <spring:message code="label_to_basket" var="labelToBasket" />
 
     <spring:url var="submitAddToBasketUrl" value="/weborder/item" />
     <spring:url var="toBasket" value="/weborder" />
@@ -50,5 +51,5 @@
         </tbody>
     </table>
 
-    <p style="float:right"> <a href="${toBasket}" >Naar winkelwagen...</a> </p>
+    <p style="float:right"> <a href="${toBasket}" >${labelToBasket}...</a> </p>
 </div>

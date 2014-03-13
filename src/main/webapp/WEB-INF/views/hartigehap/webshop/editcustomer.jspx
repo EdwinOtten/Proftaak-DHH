@@ -8,9 +8,14 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
 
-    <h1>
-        Klantgegevens invoeren
-    </h1>
+    <spring:message code="label_insert_customer_data" var="labelInsertCustomerData" />
+    <spring:message code="label_name" var="labelName" />
+    <spring:message code="label_address" var="labelAddress" />
+    <spring:message code="label_city" var="labelCity" />
+    <spring:message code="label_order_pay" var="labelOrderPay" />
+
+
+    <h1>${labelInsertCustomerData}</h1>
 
     <p>
         ${message.getMessage()}
@@ -19,19 +24,16 @@
     <form:form modelAttribute="customer" id="customerUpdateForm"
                enctype="multipart/form-data" method="${customer.id==null ? 'post':'put'}">
         <!-- Naam -->
-        <form:label path="name">
-            Naam:
-        </form:label>
+        <form:label path="name">${labelName}:</form:label>
         <form:input path="name" />
         <div>
             <form:errors path="name" cssClass="error" />
         </div>
+
         <br />
 
         <!-- Adres -->
-        <form:label path="address">
-            Adres:
-        </form:label>
+        <form:label path="address">${labelAddress}</form:label>
         <form:input path="address" />
         <div>
             <form:errors path="address" cssClass="error" />
@@ -39,22 +41,15 @@
         <br />
 
         <!-- Stad -->
-        <form:label path="city">
-            Stad:
-        </form:label>
+        <form:label path="city">${labelCity}</form:label>
         <form:input path="city" />
         <div>
             <form:errors path="city" cssClass="error" />
         </div>
         <br />
         <button type="submit">
-            <span>Bestellen en betalen</span>
+            <span>${labelOrderPay}</span>
         </button>
-        <!--button type="reset"
-                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <span class="ui-button-text">Reset</span>
-        </button-->
-
     </form:form>
 
 </div>
