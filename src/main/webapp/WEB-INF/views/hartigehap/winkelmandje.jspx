@@ -11,13 +11,26 @@
     
     <c:set var="baseURL" value="${pageContext.request.contextPath}"/>
 
+
+
+    <spring:message code="label_your_basket" var="labelYourBasket" />
+
+
     <spring:url var="deleteFromBasketUrl" value="/weborder/item" />
     <spring:url var="removeIngredientUrl" value="/weborder/item/ingredient" />
     <spring:url var="addAdditionalIngredientUrl" value="/weborder/item" />
     <spring:url var="toWebMenuUrl" value="/webmenu" />
     <spring:url var="toCustomerFormUrl" value="/weborder/customer" />
 
-	<h1>Uw bestelling</h1>
+    <spring:message code="label_image" var="labelImage" />
+    <spring:message code="label_product" var="labelProduct" />
+    <spring:message code="label_price" var="labelPrice" />
+    <spring:message code="label_actions" var="labelActions" />
+    <spring:message code="label_total_price" var="labelTotalPrice" />
+    <spring:message code="label_to_overview" var="labelToOverview" />
+    <spring:message code="label_order" var="labelOrder" />
+
+	<h1>${labelYourBasket}</h1>
     <!--h4>bestelnummer ${webOrderId}</h4>
     <h4>Insert een voorbeeld product:</h4>
     <pre>INSERT INTO `weborderitem` (`version`, `menuItem_id`, `weborder_id`) VALUES ('1', 'pizza kapsalon', '${webOrderId}')</pre-->
@@ -25,10 +38,10 @@
     <table>
         <thead>
        	<tr>
-       		<th>Productafbeelding</th>
-    		<th>Product</th>
-    		<th>Prijs</th>
-    		<th>Acties</th>
+       		<th>${labelImage}</th>
+    		<th>${labelProduct}</th>
+    		<th>${labelPrice}</th>
+    		<th>${labelActions}</th>
     	</tr>
         </thead>
         <tbody>
@@ -81,9 +94,9 @@
         </tbody>
     </table>
 
-    <p>Prijs Totaal: € ${totalPrice}</p>
+    <p>${labelTotalPrice}: € ${totalPrice}</p>
 
-    <p style="float:left"> <a href="${toWebMenuUrl}"> Terug naar overzicht... </a> </p>
+    <p style="float:left"> <a href="${toWebMenuUrl}">← ${labelToOverview}</a> </p>
 
-    <a href="${toCustomerFormUrl}" style="float: right;"> Bestellen </a>
+    <a href="${toCustomerFormUrl}" style="float: right;">${labelOrder}</a>
 </div>
