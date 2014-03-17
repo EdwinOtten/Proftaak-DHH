@@ -13,13 +13,19 @@
     <table>
         <thead>
         <tr>
+        	<th>ID</th>
             <th>Naam</th>
+            <th>Adres</th>
+            <th>Plaats</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${orders}" var="order">
             <tr>
-                <td>${order.customer.name}</td>                
+            	<td>${order.customer.id}</td>
+                <td>${order.customer.name}</td>
+                <td>${order.customer.address}</td>
+                <td>${order.customer.city}</td>                
             </tr>
         </c:forEach>
         </tbody>
