@@ -65,6 +65,7 @@ public class WebOrderServiceImpl implements WebOrderService{
     public long createNewWebOrder() {
         WebOrder webOrder = new WebOrder();
         webOrder.setPriceCalculator(PriceCalculatorFactory.getInstance().create());
+        webOrder.setWebOrderState(WebOrder.WebOrderState.NEW);
         save(webOrder);
         return webOrder.getId();
     }

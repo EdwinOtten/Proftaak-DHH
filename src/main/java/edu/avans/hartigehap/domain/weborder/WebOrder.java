@@ -45,7 +45,7 @@ public class WebOrder extends DomainObject {
     }
 
     public enum WebOrderState {
-        NEW, PAID
+        NEW, PAID, COOKED, DELIVERED
     }
 
     public void finishWebOrder() {
