@@ -25,7 +25,7 @@ public interface WebOrderService {
 
 //    WebOrder fetchWarmedUp(long sessionId);
 
-//    List<WebOrder> findAll();
+    Iterable<WebOrder> findAll();
 //    Page<WebOrder> findAllByPage(Pageable pageable);
     void addToWebOrder (WebOrder order, String name);	
 }

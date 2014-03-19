@@ -97,4 +97,11 @@ public class WebOrderServiceImpl implements WebOrderService{
         webOrder.finishWebOrder();
         webOrderRepo.save(webOrder);
     }
+
+	@Override
+	public Iterable<WebOrder> findAll() {
+		
+		return webOrderRepo.findAll();
+	}
+    
 }

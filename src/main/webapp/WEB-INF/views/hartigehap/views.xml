@@ -38,4 +38,7 @@
     <definition extends="default" name="hartigehap/showfinishedweborder">
         <put-attribute name="body" value="/WEB-INF/views/hartigehap/webshop/showfinishedweborder.jspx" />
     </definition>
+    <definition extends="default" name="hartigehap/webshop/orderoverview">
+        <put-attribute name="body" value="/WEB-INF/views/hartigehap/webshop/orderoverview.jspx" />
+    </definition>
 </tiles-definitions>
