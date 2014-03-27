@@ -9,3 +9,4 @@ src/main/java/edu/avans/hartigehap/domain/WebOrderItem.java
 src/main/resources/datasource-tx-jpa.xml
 src/main/resources/datasource-tx-jpa.xml
 src/main/resources/datasource-tx-jpa.xml
+src/main/resources/datasource-tx-jpa.xml
