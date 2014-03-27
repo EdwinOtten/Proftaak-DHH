@@ -5,3 +5,4 @@
 /.idea
 /*.log
 hh-B2.iml
+src/main/resources/datasource-tx-jpa.xml
