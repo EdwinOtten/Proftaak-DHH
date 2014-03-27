@@ -6,7 +6,7 @@
      xmlns:sec="http://www.springframework.org/security/tags">
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
-    
+    <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
     <h1>Overzicht</h1>
 
     
@@ -30,4 +30,5 @@
         </c:forEach>
         </tbody>
     </table>
+    </sec:authorize>
 </div>
