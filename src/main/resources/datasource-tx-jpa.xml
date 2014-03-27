@@ -45,7 +45,6 @@
 	</bean>
 
 	<context:annotation-config />
-
 	<jpa:repositories
 		base-package="edu.avans.hartigehap.repository"
 		entity-manager-factory-ref="emf"
@@ -58,10 +57,11 @@
 		<!--<property name="url" value="jdbc:mysql://localhost:3306/hh" />-->
 		<property name="url" value="jdbc:mysql://localhost:3306/hhb2" />  
 		<property name="username" value="root" />
-		<property name="password" value="10ec4u" />
+		<property name="password" value="10ec4u" />  
 		<!--<property name="password" value="" />-->
 		<property name="maxActive" value="0" />
 		<property name="initialSize" value="50" />
+		
 	</bean>
 
 	<beans profile="dev">
